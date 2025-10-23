@@ -1,0 +1,105 @@
+def procesar_ingresos(df):
+    personas_con_ingresos = df["PERSONAS_CON_INGRESOS"].sum();
+    
+    ingresos_relacion_dependencia = df["INGRESOS_RELACION_DEPENDENCIA"].sum();
+    ingresos_informal_completo = df["INGRESOS_INFORMAL_COMPLETO"].sum();
+    ingresos_informal_temporario = df["INGRESOS_INFORMAL_TEMPORARIO"].sum();
+    ingresos_jubilados_pensionados = df["INGRESOS_JUBILADOS_PENSIONADOS"].sum();
+    ingresos_autonomos = df["INGRESOS_AUTONOMOS"].sum();
+    ingresos_emprendedores = df["INGRESOS_EMPRENDEDORES"].sum();
+    ingresos_planes_sociales = df["INGRESOS_PLANES_SOCIALES"].sum();
+    ingresos_otras_fuentes = df["INGRESOS_OTRAS_FUENTES"].sum();
+
+    total_ingresos = ingresos_autonomos+ingresos_emprendedores+ingresos_informal_completo+ingresos_informal_temporario+ingresos_jubilados_pensionados+ingresos_otras_fuentes+ingresos_planes_sociales+ingresos_relacion_dependencia
+
+    promedio_fuentes_ingreso_por_persona = total_ingresos / personas_con_ingresos
+
+    
+    print(f"Total ingresos relación dependencia: {ingresos_relacion_dependencia}");
+    print(f"Total ingresos informal completo: {ingresos_informal_completo}");
+    print(f"Total ingresos informal temporario: {ingresos_informal_temporario}");
+    print(f"Total ingresos jubilados/pensionados: {ingresos_jubilados_pensionados}");
+    print(f"Total ingresos autónomos: {ingresos_autonomos}");
+    print(f"Total ingresos emprendedores: {ingresos_emprendedores}");
+    print(f"Total ingresos planes sociales: {ingresos_planes_sociales}");
+    print(f"Total ingresos otras fuentes: {ingresos_otras_fuentes}");
+    print("")
+    print(f"Total personas con ingresos: {personas_con_ingresos}");
+    print(f"Total Fuentes de ingreso: {total_ingresos}");
+    print(f"Promedio Fuentes de ingreso por persona: {promedio_fuentes_ingreso_por_persona}");
+
+
+    porcentaje_ingresos_relacion_dependencia = (ingresos_relacion_dependencia / total_ingresos)*100
+    porcentaje_ingresos_informal_completo = (ingresos_informal_completo / total_ingresos)*100
+    porcentaje_ingresos_informal_temporario = (ingresos_informal_temporario / total_ingresos)*100
+    porcentaje_ingresos_jubilados_pensionados = (ingresos_jubilados_pensionados / total_ingresos)*100
+    porcentaje_ingresos_autonomos = (ingresos_autonomos / total_ingresos)*100
+    porcentaje_ingresos_planes_sociales = (ingresos_planes_sociales / total_ingresos)*100
+    porcentaje_ingresos_otras_fuentes = (ingresos_otras_fuentes / total_ingresos)*100
+    porcentaje_ingresos_emprendimientos = (ingresos_emprendedores / total_ingresos)*100
+
+    porcentaje_relacion_dependencia_trabajadores = (ingresos_relacion_dependencia / personas_con_ingresos)*100
+    porcentaje_informal_completo_trabajadores = (ingresos_informal_completo / personas_con_ingresos)*100
+    porcentaje_informal_temporario_trabajadores = (ingresos_informal_temporario / personas_con_ingresos)*100
+    porcentaje_jubilados_pensionados_trabajadores = (ingresos_jubilados_pensionados / personas_con_ingresos)*100
+    porcentaje_autonomos_trabajadores = (ingresos_autonomos / personas_con_ingresos)*100
+    porcentaje_ingresos_planes_sociales_trabajadores = (ingresos_planes_sociales / personas_con_ingresos)*100
+    porcentaje_otras_fuentes_trabajadores = (ingresos_otras_fuentes / personas_con_ingresos)*100
+    porcentaje_emprendedores_trabajadores = (ingresos_emprendedores / personas_con_ingresos)*100
+    
+    print("");
+    print(f"Porcentaje de emprendedores sobre el total de personas con ingresos: {porcentaje_emprendedores_trabajadores}%")
+    print(f"Porcentaje de relación de dependencia sobre el total de personas con ingresos: {porcentaje_relacion_dependencia_trabajadores}%")
+    print(f"Porcentaje de informal completo sobre el total de personas con ingresos: {porcentaje_informal_completo_trabajadores}%")
+    print(f"Porcentaje de informal temporario sobre el total de personas con ingresos: {porcentaje_informal_temporario_trabajadores}%")
+    print(f"Porcentaje de jubilados/pensionados sobre el total de personas con ingresos: {porcentaje_jubilados_pensionados_trabajadores}%")
+    print(f"Porcentaje de autónomos sobre el total de personas con ingresos: {porcentaje_autonomos_trabajadores}%")
+    print(f"Porcentaje de planes sociales sobre el total de personas con ingresos: {porcentaje_ingresos_planes_sociales_trabajadores}%")
+    print(f"Porcentaje de otras fuentes sobre el total de personas con ingresos: {porcentaje_otras_fuentes_trabajadores}%")
+
+    print("");
+    print(f"Porcentaje de ingresos por emprendimientos sobre el total de ingresos: {porcentaje_ingresos_emprendimientos}%")
+    print(f"Porcentaje de ingresos por relación de dependencia sobre el total de ingresos: {porcentaje_ingresos_relacion_dependencia}%")
+    print(f"Porcentaje de ingresos por informal completo sobre el total de ingresos: {porcentaje_ingresos_informal_completo}%")
+    print(f"Porcentaje de ingresos por informal temporario sobre el total de ingresos: {porcentaje_ingresos_informal_temporario}%")
+    print(f"Porcentaje de ingresos por jubilados/pensionados sobre el total de ingresos: {porcentaje_ingresos_jubilados_pensionados}%")
+    print(f"Porcentaje de ingresos por autónomos sobre el total de ingresos: {porcentaje_ingresos_autonomos}%")
+    print(f"Porcentaje de ingresos por planes sociales sobre el total de ingresos: {porcentaje_ingresos_planes_sociales}%")
+    print(f"Porcentaje de ingresos por otras fuentes sobre el total de ingresos: {porcentaje_ingresos_otras_fuentes}%")
+
+def procesar_emprendedores(df):
+    rubros=df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].dropna().unique();
+    cantidad_iniciativas_por_rubro = df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].dropna().value_counts().sum();
+    tipos_asistencias_deseadas=df["APOYOS_NECESARIOS_PARA_EMPRENDER"].dropna().str.split(",").explode().str.strip().unique()
+
+    total_elaboradores_alimentos = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].str.lower()=="alimentos"].shape[0];
+
+    elaboradores_alimentos_habilitados = df[
+        (df["DISPONE_HABILITACION_CARNET_ALIMENTOS"].str.lower()=="sí") &
+        (df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].str.lower()=="alimentos")
+        ].shape[0]
+    elaboradores_alimentos_inhabilitados = df[
+        (df["DISPONE_HABILITACION_CARNET_ALIMENTOS"].str.lower().str.contains("no", na=True)) &
+        (df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].str.lower()=="alimentos")
+        ].shape[0] 
+    porcentaje_elaboradores_habilitados = (elaboradores_alimentos_habilitados / total_elaboradores_alimentos)*100 if total_elaboradores_alimentos > 0 else 0
+    porcentaje_elaboradores_inhabilitados = (elaboradores_alimentos_inhabilitados / total_elaboradores_alimentos)*100 if total_elaboradores_alimentos > 0 else 0
+
+
+    print(f"Total de elaboradores de alimentos: {total_elaboradores_alimentos}");
+    print(f"Cantidad de elaboradores de alimentos con habilitación/carnet: {elaboradores_alimentos_habilitados}");
+    print(f"Cantidad de elaboradores de alimentos sin habilitación/carnet: {elaboradores_alimentos_inhabilitados}");
+    print(f"Porcentaje de elaboradores de alimentos con habilitación/carnet: {porcentaje_elaboradores_habilitados}%");
+    print(f"Porcentaje de elaboradores de alimentos sin habilitación/carnet: {porcentaje_elaboradores_inhabilitados}%");
+
+    print("Rubros de iniciativas de emprendimientos:");
+    print(rubros);
+    print("Asistencias deseadas para emprender:");
+    print(tipos_asistencias_deseadas);
+
+    valores = df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].value_counts();
+    
+    print(f"Cantidad total de iniciativas de emprendimientos: {cantidad_iniciativas_por_rubro}");
+    print(f"Iniciativas de emprendimientos por rubro: {valores}");
+    
+    print(f"Distribucion de iniciativas de emprendimientos por rubro:{df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].value_counts(normalize=True)*100}");
