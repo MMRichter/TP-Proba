@@ -66,7 +66,7 @@ encabezados = ["MARCA_TEMPORAL",
 
 # Función auxiliar para renderizar tablas como imagen
 def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
-    ax = plt.subplots()
+    fig,ax = plt.subplots()
     ax.axis('off')
     ax.axis('tight')
     ax.set_title(titulo)
