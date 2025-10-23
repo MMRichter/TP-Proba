@@ -69,7 +69,6 @@ Abre una terminal y ejecutá:
 git clone https://github.com/MMRichter/TP-Proba.git
 ```
 
-(⚠️ Reemplazá la URL por la de tu repositorio real)
 
 Luego ingresá a la carpeta:
 
@@ -227,3 +226,4 @@ Podés consultar:
 ---
 
 ¡Listo! Ya podés trabajar y ejecutar el proyecto correctamente. 🎉
+
