@@ -132,7 +132,7 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
 
     return tabla, resumen
 
-# -----------------------------
+# ------------------------------
 # Tabla de frecuencias cualitativa ordinal
 def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
     columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
