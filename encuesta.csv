@@ -4,7 +4,7 @@ Marca temporal,Encuestador,Nro. de encuesta,Dirección de la vivienda,Nro. de ma
 20/10/2025 20:01:28,pedro santacruz,10,12 de Octubre 1310,4,1,1,0,0,0,0,0,0,0,,,,,,,,,,4,,,2,2,2,0,0,0,Son mayores de 13 años y se autogestionan,,,,,,,,,,,,,,,,,,,,,,,,,,,
 20/10/2025 20:04:24,pedro santacruz,11,12 de Octubre 1347,4,4,0,0,0,4,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Difícil,No,,No,,Sí,Sí,Sí,Difícil,No,,,,,,,,,,
 20/10/2025 20:06:20,pedro santacruz,12,12 de Octubre 1356,4,2,0,0,2,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Sí,Sí,No,,No,,,,,,,,,,
-20/10/2025 20:07:52,pedro santacruz,13,12 de Octubre 1398,4,2,2,0,0,0,0,0,0,0,,,,,,,Accesorios ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+20/10/2025 20:07:52,pedro santacruz,13,12 de Octubre 1398,4,2,2,0,0,0,0,0,0,0,,,,,,,"Accesorios ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 6/10/2025 17:23:19,Sanchez Islas Joaquin,9,12 de Octubre 1427,3,3,3,0,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Eran 6 personas mayores a 18 pero no jubilados, solo declararon ingresos 3 de ellas"
 7/10/2025 11:20:22,Julieta Diaz Funes,14,12 de Octubre 1436,6,2,0,2,0,0,0,0,0,0,,,,,,,Alimentos,Sí,Habilitaciones,1,1,,,,0,0,0,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
 6/10/2025 16:58:13,Denda Joaquin,8,12 de Octubre 1455,3,2,0,0,0,2,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Centro de jubilados,Sí,Sí,Sí,Fácil,No,,Sí,Centro de jubilados,Sí,Sí,Sí,Fácil,No,,,,,,,,,,
@@ -25,7 +25,7 @@ en la salita no les dan atencion"
 8/10/2025 14:18:18,Mathias Señorans,8,"Arenales 422, Depto 2",1,2,0,0,0,0,1,0,0,0,,,,,,,Servicio,,,1,1,,,,0,1,1,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 13:34:20,Horn Esteban,3,"Arenales 422, Depto 4",1,2,1,0,0,0,1,0,0,0,,,,,,,,,,1,1,,,,0,0,0,0,Compartido entre dos o más personas,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 13:56:43,Horn Esteban,5,Arenales 448,1,3,2,0,0,0,0,1,0,0,,,,,,,,,,1,,1,,,0,1,1,0,Compartido entre dos o más personas,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
-8/10/2025 13:58:55,Horn Esteban ,6,Arenales 452,1,2,1,1,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+8/10/2025 13:58:55,"Horn Esteban ",6,Arenales 452,1,2,1,1,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 14:26:01,Mathias Señorans,9,Arenales 454,1,2,0,2,0,2,0,0,0,0,,,,,,,Turismo,,Financiamiento,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,No,,Sí,Sí,No,,No,,,,,,,,,,
 6/10/2025 17:47:29,Sanchez Islas Joaquin,12,Arenales 515,3,1,1,0,0,0,0,0,0,0,,1,18,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 6/10/2025 17:45:35,Denda Joaquin,11,Arenales 553,3,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
@@ -41,7 +41,7 @@ Marcamos que no, pero la persona que se encuentra cuidando a los hijos es su mad
 8/10/2025 14:05:45,Mathias Señorans,7,Artigas 439,1,2,1,0,0,0,1,0,0,0,,,,,,,,,,2,,1,1,,0,2,2,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 13:30:35,Mathias Señorans,2,"Artigas 443, Depto 2",1,1,0,1,0,0,0,0,0,0,,1,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,La fuente principal de ingresos del encuestado es programador FreeLancer
 8/10/2025 13:22:42,Marcos Cejas,1,Artigas 485,1,4,1,0,0,0,3,0,0,0,,,,,,,,,,1,1,,,,0,0,0,0,Compartido entre dos o más personas,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,"la fuente principal de ingreso de los encuentados, era principalmente la venta de leña y poda"
-20/10/2025 19:59:27,pedro santacruz,9,Artigas 604,4,1,1,0,0,0,0,0,0,0,,,,,,,Venta de ropa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+20/10/2025 19:59:27,pedro santacruz,9,Artigas 604,4,1,1,0,0,0,0,0,0,0,,,,,,,Comercio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 20/10/2025 19:57:33,pedro santacruz,8,Artigas 661,4,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 7/10/2025 10:43:23,Ivana Martinez,1,Bariffi 1598,6,1,0,1,0,0,0,0,0,0,,1,12,,,,Servicio,,,2,,1,2,,1,1,0,0,Principalmente en una persona,Madre,No,,,,,,,,,,,,,,,,,,,,,,,,,"Adolescente de 14 años va a la escuela y busca trabajo
 mamá con maquina de coser, desde el municipio no han contestado para brindar telas
@@ -54,7 +54,7 @@ mamá siempre cuida de los niños, si la mamá no esta son las tias"
 11/10/2025 13:25:51,Valentín Delirenzi,1,Bariffi 523,5,1,1,0,0,0,0,1,0,0,,,,,,,Artesanías diversas,,Difusión,1,,,,1,0,1,1,0,Son mayores de 13 años y se autogestionan,,,,,,,,,,,,,,,,,,,,,,,,,,,No había adultos mayores
 8/10/2025 13:20:49,Mateo Garrido,2,Bariffi 569,5,6,2,0,1,3,0,0,0,0,,,,,,,Alimentos,No,,1,,,1,,0,1,1,0,Principalmente en una persona,Abuelo/a,Sí,Sí,Soc. de Fomento,Sí,No,No,,No,,,,,,,,,,,,,,,,,,La presona que fue entrevistada no sabia si el emprendedor (alimentos) de la vivienda poseia carnet de habilitacion
 9/10/2025 15:32:53,Toma Pezzati,3,Bariffi 579,5,2,2,0,0,0,0,0,0,0,,,,,,,Servicio,,Difusión,1,,,1,,0,1,1,1,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
-7/10/2025 19:03:12,Juan Adolfo Louge,14,Bariffi 580,2´,2,1,0,1,0,0,0,0,0,,1,6,,,,Reventa,,Financiamiento,2,1,,,1,0,2,1,0,Compartido entre dos o más personas,,Sí,,,,,,,,,,,,,,,,,,,,,,,,,"La manzana 2´es aquella comprendida  entre las calles: Gaucho Rivero, 12 de octubre, Bariffi y Chaco"
+7/10/2025 19:03:12,Juan Adolfo Louge,14,Bariffi 580,2´,2,1,0,1,0,0,0,0,0,,1,6,,,,Comercio,,Financiamiento,2,1,,,1,0,2,1,0,Compartido entre dos o más personas,,Sí,,,,,,,,,,,,,,,,,,,,,,,,,"La manzana 2´es aquella comprendida  entre las calles: Gaucho Rivero, 12 de octubre, Bariffi y Chaco"
 7/10/2025 10:46:27,Julieta diaz funes,2,Bariffi 696,6,3,3,0,0,0,0,0,0,0,,,,,,,,,,1,,,,1,0,1,1,0,Compartido entre dos o más personas,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 7:22:38,Facundo Bonanna,9,Bariffi 738,7-8,1,1,0,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 7/10/2025 8:40:11,Juan,9,Bariffi 751,8,2,0,0,0,2,0,0,0,0,,,,,,,,No,,,,,,,,,,,,,No,Sí,Grupo de Whatsapp del barrio,Sí,Sí,Sí,Moderada,Sí,"Falta de mantenimiento de la via publica, Inseguridad",Sí,El grupo de Whatsapp del barrio,Sí,Sí,No,,Sí,"Falta de mantenimiento de la via publica, Inseguridad",,,,,,,,,"La falta de seguridad que menciona la persona entrevistada es algo para hablar, ya que no solo la afecta a ella, sino que el hecho de haber creado un grupo de whatsapp con los vecinos implica que es un problema en toda la cuadra y sus alrededores. "
@@ -76,7 +76,7 @@ El encuestado indico que su celular era muy viejo por lo que le costaba hacerla 
 9/10/2025 10:16:03,Juliana Pedone,2,Campichuelo 1580,8,2,0,0,0,1,0,0,0,1,Cooperativa,,,,,,Servicio,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Moderada,No,,,,,,,,,,,,,,,,,,"¿Tiene instalada la app PAMI en el celular? ¿Qué nivel de dificultad presenta? La tiene instalada, pero aclara que casi no la usa y no dio un nivel de dificultad claro."
 9/10/2025 10:05:36,Juliana Larzabal,1,Campichuelo 1595,8,2,2,0,0,0,0,0,0,0,,,,,,,Servicio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 14:33:38,Marcos Cejas,11,Chaco 1348,1,2,1,0,0,2,1,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,No,,No,,No,,Sí,Sí,,,No,,,,,,,,,,Los dos encuestados siguen trabajando a pesar de estar jubilados
-6/10/2025 17:49:02,Sanchez Islas Joaquin,13,Chaco 1412 ,3,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
+6/10/2025 17:49:02,Sanchez Islas Joaquin,13,"Chaco 1412 ",3,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 6/10/2025 17:50:38,Lombardi Viggo,14,Chaco 1450,3,2,1,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,Sí,Estado de calles y veredas,,,,,,,,,,,,,,,,,
 7/10/2025 18:31:00,Naiquén Isasmendi,3,Chaco 1547,2,2,0,2,0,0,0,0,0,0,,,,,,,,,,1,,,1,,0,1,1,0,Compartido entre dos o más personas,,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 9/10/2025 15:44:04,Tomas Pezzati,9,Chaco 1629,5* (otra manzana),3,2,0,0,0,0,1,0,0,,,,,,,Comercio,,,2,,,1,1,0,2,2,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -114,13 +114,13 @@ Se cuenta con un celular con datos móviles pero no hay servicio de internet. "
 8/10/2025 10:01:38,Emmanuel,6,Fuschini 1420,3,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 8/10/2025 9:56:58,Ian,5,Fuschini 1450,3,2,1,1,0,0,0,0,0,0,,,,,,,Servicio,,,1,,,1,,0,1,0,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 10:04:55,Emmanuel,8,Fuschini 373,2,1,1,0,0,0,0,0,0,0,,,,,,,Servicio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-8/10/2025 10:06:23,Emmanuel,9,Fuschini 535,2,3,0,0,2,1,0,0,0,0,,1,24,,,,Servicio,,,,,,,,,,,,,,,Sí,Casa Común ,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
+8/10/2025 10:06:23,Emmanuel,9,Fuschini 535,2,3,0,0,2,1,0,0,0,0,,1,24,,,,Servicio,,,,,,,,,,,,,,,Sí,"Casa Común ",Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
 9/10/2025 10:45:32,Juliana Pedone Diez,10,Gaucho Rivero 131,6,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Moderada,Sí,Movilidad reducida,,,,,,,,,,,,,,,,,"La encuestada aprovecho el momento de las preguntas respecto a PAMI para hacer quejas de su funcionamiento (como obra social, no la aplicación), dijo que este mes todavía no le habían entregado los pañales."
 9/10/2025 10:41:32,Juliana Larzabal,9,Gaucho Rivero 135,6,2,0,0,0,1,1,0,0,0,,,,,,,,,,1,,,,1,0,1,0,0,Son mayores de 13 años y se autogestionan,,No,No,,Sí,No,No,,No,,,,,,,,,,,,,,,,,,"La encuestada indico que la menor de 18 años sólo esta 3 o 4 días por semana en la casa (casa del padre), ya que los otros días esta en la casa de la madre."
 9/10/2025 10:36:13,Juliana Pedone Diez,8,Gaucho Rivero 181,6,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,No,No,No,,No,,,,,,,,,,,,,,,,,,
 7/10/2025 14:03:19,Matias Rivolta,8,Gaucho Rivero 307,20,2,2,0,0,0,0,2,0,0,,,,,,,Artesanías diversas,,,2,,,1,1,0,2,2,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 7/10/2025 14:05:37,Tomas Rocha,9,Gaucho Rivero 329,20,2,0,0,0,2,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,"Soc. de Fomento, ",Sí,Sí,No,,No,,Sí,"Soc. de Fomento, ",Sí,Sí,No,,No,,,,,,,,,,
-7/10/2025 14:07:33,Tomas Rocha,10,Gaucho Rivero 359 ,20,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,No,No,No,,No,,,,,,,,,,,,,,,,,,
+7/10/2025 14:07:33,Tomas Rocha,10,"Gaucho Rivero 359 ",20,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,No,No,No,,No,,,,,,,,,,,,,,,,,,
 7/10/2025 18:25:43,Naiquén Isasmendi,1,Gaucho Rivero 487,2,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,"Centro de jubilados, Soc. de Fomento",Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 6/10/2025 16:36:45,Lombardi Viggo,1,Gaucho Rivero 504,3,2,0,0,0,0,0,2,0,0,,,,,,,Comercio,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 7/10/2025 18:28:39,Naiquén Isasmendi,2,Gaucho Rivero 511,2´ (otra manzana),2,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,"Centro de jubilados, Soc. de Fomento",No,No,No,,No,,Sí,"Centro de jubilados, Soc. de Fomento",Sí,No,No,,No,,,,,,,,,,
@@ -158,9 +158,9 @@ La encuestada dijo que sólo uso la aplicación una vez."
 9/10/2025 13:00:20,Felipe Jaureguiber Molina,7,Ituzaingo 1576,14,1,0,0,0,1,1,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Club,Sí,Sí,Sí,Fácil,Sí,Estado de calles y veredas,,,,,,,,,,,,,,,,,
 8/10/2025 22:09:29,Ivo Iriarte,6,Ituzaingo 1654,12,2,0,0,0,2,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,,,,,,,,,
 9/10/2025 13:13:37,Felipe Jaureguiber Molina,12,Juan B. Justo 138,10,1,1,0,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-8/10/2025 22:14:52,Geronimo Villanueva ,7,Juan B. Justo 278,12,0,0,0,0,1,0,0,0,0,,1,12,,,,Alimentos,Sí,Financiamiento,,,,,,,,,,,,,No,,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
-8/10/2025 22:07:37,Ivo Iriarte ,5,Juan B. Justo 63,12,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Moderada,No,,,,,,,,,,,,,,,,,,"En la pregunta 9 , la persona aclaro que no conoce el barrio."
-9/10/2025 15:39:38,Tomas Pezzati ,6,Juan B. Justo 640 ,5,2,2,0,0,0,0,0,0,0,,1,3,,,,,,,1,,,,1,0,1,1,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
+8/10/2025 22:14:52,"Geronimo Villanueva ",7,Juan B. Justo 278,12,0,0,0,0,1,0,0,0,0,,1,12,,,,Alimentos,Sí,Financiamiento,,,,,,,,,,,,,No,,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
+8/10/2025 22:07:37,"Ivo Iriarte ",5,Juan B. Justo 63,12,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Moderada,No,,,,,,,,,,,,,,,,,,"En la pregunta 9 , la persona aclaro que no conoce el barrio."
+9/10/2025 15:39:38,"Tomas Pezzati ",6,"Juan B. Justo 640 ",5,2,2,0,0,0,0,0,0,0,,1,3,,,,,,,1,,,,1,0,1,1,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 7/10/2025 9:08:42,Juan,4,Juan B. Justo 714,8,1,0,0,0,1,0,0,0,0,,,,,,,,No,,,,,,,,,,,,,,No,,Sí,Sí,No,,Sí,Falta de mantenimiento de la via publica,No,,Sí,Sí,No,,Sí,Falta de mantenimiento de la via publica,,,,,,,,,"Me parece un tema para hablar el problema que presenta esta familia, ya que la persona insistió en que se esmero llamando gente y haciendo reclamos pero nadie se hace responsable de la situación"
 7/10/2025 9:03:52,Juan,5,Juan B. Justo 738,8,2,2,0,0,0,0,0,0,0,,,,,,,,No,,3,,,1,2,0,3,3,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,La persona entrevistada hizo mención un lugar el cual concurría dentro del barrio para conseguir útiles y cosas de ayuda para su hijos el cual sin justificación se traslado muy lejos de la zona
 9/10/2025 10:28:47,Juliana Pedone Diez,4,Juramento 1512,8,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,No,Sí,Moderada,No,,,,,,,,,,,,,,,,,,"¿Tiene instalada la app PAMI en el celular?
@@ -172,9 +172,9 @@ Aclaro que la usa su hija."
 9/10/2025 20:56:46,Agustin Loray,1,"Monoblock 2, Piso 1, Depto 2",2,2,0,0,2,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 9/10/2025 21:02:26,Rafael Fredes,2,"Monoblock 2, Piso 2, Depto 1",2,2,0,0,0,2,0,0,0,0,,2,2,6,,,Alimentos,No,"Maquinaria/insumos, Difusión",1,,,,1,0,1,0,0,Compartido entre dos o más personas,,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,No,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,No,,,,,,,,,,
 9/10/2025 21:08:03,Agustin Loray,3,"Monoblock 2, Piso 2, Depto 2",2,2,1,0,0,1,0,0,0,0,,,,,,,Reventa,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,No,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,No,,,,,,,,,,
-8/10/2025 9:01:21,Mateo Menchon,3,Pavon 1164 Casa 1 ,5,1,0,1,0,0,1,0,0,1,Clases de tango,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+8/10/2025 9:01:21,Mateo Menchon,3,"Pavon 1164 Casa 1 ",5,1,0,1,0,0,1,0,0,1,Clases de tango,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 16:31:01,Mateo Menchon,6,Pavon 1496,1,2,2,0,0,1,0,0,0,0,,1,6,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
-8/10/2025 8:57:38,Lucio Storni,2,Pavon 1641 C,5,2,1,0,1,0,0,1,0,0,,,,,,,Reventa,,,2,,,2,,2,0,2,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
+8/10/2025 8:57:38,Lucio Storni,2,Pavon 1641 C,5,2,1,0,1,0,0,1,0,0,,,,,,,Comercio,,,2,,,2,,2,0,2,1,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 8:53:12,Geronimo Polich,1,Pavon 1674,5,1,1,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 16:42:28,Lucio Storni,9,Pavon 928 Casa 1,1,1,0,0,0,1,0,0,0,1,Alquileres,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,No,No,No,,No,,,,,,,,,,,,,,,,,,
 8/10/2025 16:34:36,Geronimo Polich,7,Pavon 928 Casa 2,1,1,0,0,0,1,1,1,0,0,,,,,,,Alimentos,Sí,Financiamiento,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
@@ -185,19 +185,19 @@ Aclaro que la usa su hija."
 9/10/2025 12:52:04,Felipe Jaureguiber Molina,4,Payro 1573,14,1,1,0,0,0,0,0,0,0,,1,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 9/10/2025 12:49:58,Genaro Stampone Navarro,3,Payro 1575,14,2,0,0,0,2,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Moderada,No,,No,,Sí,Sí,Sí,Moderada,No,,,,,,,,,,
 8/10/2025 22:01:55,Geronimo Villanueva,3,Payro 1588,18,3,1,0,0,1,0,1,0,0,,,,,,,Alimentos,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Difícil,No,,,,,,,,,,,,,,,,,,
-8/10/2025 21:54:38,Geronimo Villanueva,2,Payro 1596 ,18,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Centro de jubilados,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
+8/10/2025 21:54:38,Geronimo Villanueva,2,"Payro 1596 ",18,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Centro de jubilados,Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 7/10/2025 13:38:48,Rocha Tomas,2,Payro 1687,16,4,1,0,1,1,1,4,0,0,,,,,,,Alimentos,Sí,Maquinaria/insumos,,,,,,,,,,,,,Sí,"Centro de jubilados, Bibliotecas, ",Sí,Sí,No,,No,,,,,,,,,,,,,,,,,,
 8/10/2025 14:44:10,Mateo Turienzo,11,Pierrone 1386,2,2,0,0,2,0,0,0,0,0,,2,12,36,,,,,,1,,,,1,1,0,1,0,Principalmente en una persona,Padre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 14:39:56,Emmanuel,10,Pierrone 1392,2,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Club Movediza,Sí,Sí,Sí,Fácil,No,,,,,,,,,,,,,,,,,,
 8/10/2025 10:03:40,Emmanuel,7,Pierrone 1465,3,4,0,0,3,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,No,,Sí,Sí,Sí,Difícil,No,,,,,,,,,,,,,,,,,,
 9/10/2025 15:40:20,Rocio Migueltorena,10,Walcalde 1165,6,1,0,0,0,0,1,1,0,0,,,,,,,Servicio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Necesitaria difusion para su emprendimineto de musico
 9/10/2025 15:23:08,Maria del Rosario Coronado,12,Walcalde 1635,6,3,2,0,1,0,0,1,0,0,,1,24,,,,Comercio,No,,2,,,,2,0,2,1,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Viven 4 personas. Madre tiene emprendimiento: Vende sahumerios, necesitaria difusion. "
-9/10/2025 15:45:23,Valentina Bisogni ,11,Walcalde 1673,6,1,1,0,0,0,1,0,0,0,,,,,,,Servicio,,,1,,,1,,0,1,1,0,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,Necesitaría espacio para poder cultivar
-9/10/2025 15:38:10,Valentina Bisogni ,7,Walcalde 2468,6,2,0,0,0,2,0,0,0,0,,,,,,,Servicio,,,,,,,,,,,,,,,Sí,Casa Común,Sí,Sí,Sí,Moderada,No,,No,,Sí,Sí,No,,No,,,,,,,,,,La aplicación del PAMI la maneja una sola persona por las dos que habitan en la casa. 
+9/10/2025 15:45:23,"Valentina Bisogni ",11,Walcalde 1673,6,1,1,0,0,0,1,0,0,0,,,,,,,Servicio,,,1,,,1,,0,1,1,0,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,Necesitaría espacio para poder cultivar
+9/10/2025 15:38:10,"Valentina Bisogni ",7,Walcalde 2468,6,2,0,0,0,2,0,0,0,0,,,,,,,Servicio,,,,,,,,,,,,,,,Sí,Casa Común,Sí,Sí,Sí,Moderada,No,,No,,Sí,Sí,No,,No,,,,,,,,,,"La aplicación del PAMI la maneja una sola persona por las dos que habitan en la casa. "
 9/10/2025 15:23:23,Rocio Migueltorena,6,Walcalde 2498,6,1,1,0,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 9/10/2025 15:22:15,Rosario Coronado,9,Walcalde 538,6,2,1,0,0,1,0,0,0,0,,,,,,,Servicio,,Búsqueda de local,1,,,,1,1,0,0,0,Principalmente en una persona,Madre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,
-9/10/2025 15:29:06,Maria del Rosario Coronado,8,Walcalde 574,6,1,0,0,1,0,0,0,0,0,,,,,,,Servicio,,,1,,,,1,1,0,0,0,Principalmente en una persona,Padre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,Para ser barbera necesitaria Maquina/insumos y capacitación 
+9/10/2025 15:29:06,Maria del Rosario Coronado,8,Walcalde 574,6,1,0,0,1,0,0,0,0,0,,,,,,,Servicio,,,1,,,,1,1,0,0,0,Principalmente en una persona,Padre,Sí,,,,,,,,,,,,,,,,,,,,,,,,,"Para ser barbera necesitaria Maquina/insumos y capacitación "
 8/10/2025 9:49:44,Ian,1,Walcalde 629,3,2,2,0,0,0,0,0,0,0,,,,,,,,,,1,,,,1,0,1,1,0,Compartido entre dos o más personas,,,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 9:50:59,Ian,2,Walcalde 637,3,2,2,0,0,0,0,0,0,0,,1,12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-8/10/2025 9:53:29,Ian,3,Walcalde 641,3,1,1,0,0,0,0,0,0,0,,1,6,,,,Reventa,,,2,,,2,,2,0,2,0,Principalmente en una persona,Madre,No,,,,,,,,,,,,,,,,,,,,,,,,,
+8/10/2025 9:53:29,Ian,3,Walcalde 641,3,1,1,0,0,0,0,0,0,0,,1,6,,,,Comercio,,,2,,,2,,2,0,2,0,Principalmente en una persona,Madre,No,,,,,,,,,,,,,,,,,,,,,,,,,
 8/10/2025 9:04:06,Geronimo Polich,4,Walcalde 762,5,1,0,0,0,1,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,Sí,Soc. de Fomento,Sí,Sí,Sí,Fácil,Sí,"Estado de calles y veredas, Falta de mantenimiento de la via publica",,,,,,,,,,,,,,,,,
