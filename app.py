@@ -64,18 +64,31 @@ encabezados = ["MARCA_TEMPORAL",
                "REGISTROS_RELEVANTES"
     ];
 
-# Función auxiliar para renderizar tablas como imagen
 def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
-    fig,ax = plt.subplots()
+    filas = len(tabla)
+    columnas = len(tabla.columns)
+
+    # Ajustes dinámicos
+    alto = max(3, filas * 0.4)
+    ancho = max(6, columnas * 2)
+
+    fig, ax = plt.subplots(figsize=(ancho, alto))
     ax.axis('off')
-    ax.axis('tight')
-    ax.set_title(titulo)
-    ax.table(
+    ax.set_title(titulo, fontsize=14, pad=15)
+
+    tabla_plot = ax.table(
         cellText=tabla.values,
         colLabels=tabla.columns,
         cellLoc='center',
         loc='center'
     )
+
+    # Ajuste de tamaños
+    tabla_plot.auto_set_font_size(False)
+    tabla_plot.set_fontsize(12)
+    tabla_plot.scale(1, 1.4)
+    tabla_plot.auto_set_column_width(range(columnas))
+
     plt.tight_layout()
     plt.show()
 
