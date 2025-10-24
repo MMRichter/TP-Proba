@@ -1,7 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+#-------------------------------------CONSTANTES-----------------------------------------------------
+# Ruta del archivo CSV de la base de datos
 base_datos="encuesta.csv"
+
+# Encabezados de las columnas del DataFrame
 encabezados = ["MARCA_TEMPORAL",
                "ENCUESTADOR",
                "NRO_ENCUESTA",
@@ -64,11 +68,14 @@ encabezados = ["MARCA_TEMPORAL",
                "REGISTROS_RELEVANTES"
     ];
 
+
+#-------------------------------------FUNCIONES GENERALES--------------------------------------------
+
+# Funcion para mostrar tablas renderizadas con matplotlib
 def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     filas = len(tabla)
     columnas = len(tabla.columns)
 
-    # Ajustes dinámicos
     alto = max(3, filas * 0.4)
     ancho = max(6, columnas * 2)
 
@@ -92,11 +99,11 @@ def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     plt.tight_layout()
     plt.show()
 
-# -----------------------------
 # Tabla de frecuencias cuantitativa discreta
 def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
     columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
+    # Orden natural de valores
     frec_abs = df[encabezado].value_counts().sort_index()
     frec_rel = frec_abs / frec_abs.sum()
     frec_abs_acum = frec_abs.cumsum()
@@ -114,7 +121,8 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
     print(tabla.to_string(index=False))
     mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
 
-    # Medidas de resumen
+    # ================================
+    #  Medidas de resumen
     serie = df[encabezado].dropna()
     medidas = {
         "Muestra": serie.count(),
@@ -132,20 +140,45 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
         "Q4": serie.quantile(1.0)
     }
     resumen = pd.DataFrame(medidas, index=["Resumen"]).T
-    resumen_reset=resumen.reset_index()
+    resumen_reset = resumen.reset_index()
 
     print(f"\nMedidas de resumen {encabezado}")
     print(resumen.to_string(header=False))
     resumen_reset.columns = ["Medida", "Valor"]
     mostrar_tabla_renderizada(resumen_reset, f"Medidas de resumen: {encabezado}")
 
-    # Gráfico
-    frec_abs.plot(kind='bar', title=f"Distribución de {encabezado}", xlabel='Valor', ylabel='Frecuencia absoluta')
+    # ================================
+    #  Gráfico de barras (frecuencia absoluta)
+    plt.figure(figsize=(8,5))
+    bars = plt.bar(frec_abs.index, frec_abs.values)
+
+    # Etiquetas arriba de barras
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                 ha='center', va='bottom')
+
+    plt.title(f"Distribución de {encabezado}")
+    plt.xlabel(encabezado)
+    plt.ylabel("Frecuencia absoluta")
+    plt.tight_layout()
+    plt.show()
+
+    # ================================
+    #  Ojiva (frecuencia relativa acumulada)
+    plt.figure(figsize=(8,5))
+    plt.plot(frec_rel_acum.index, frec_rel_acum.values, marker='o', linestyle='-', linewidth=2)
+    plt.title(f"Ojiva de {encabezado}")
+    plt.xlabel(encabezado)
+    plt.ylabel("Frecuencia relativa acumulada (%)")
+    plt.grid(alpha=0.3)
+    plt.ylim(0, 105)
+    plt.tight_layout()
     plt.show()
 
     return tabla, resumen
 
-# ------------------------------
+
 # Tabla de frecuencias cualitativa ordinal
 def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
     columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
@@ -167,23 +200,36 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
     print(tabla.to_string(index=False))
     mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
 
-    # Gráfico de torta
-    plt.figure(figsize=(6,6))
-    plt.pie(frec_abs, labels=frec_abs.index, autopct="%1.1f%%", startangle=90)
+    # ===========================
+    # Gráfico de barras ordenado
+    plt.figure(figsize=(8,5))
+    bars = plt.bar(frec_abs.index, frec_abs.values)
+
+    # Etiquetas encima de las barras
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                 ha='center', va='bottom', fontsize=9)
+
     plt.title(f"Distribución de {encabezado}")
+    plt.xlabel(encabezado)
+    plt.ylabel("Frecuencia absoluta (fi)")
+    plt.xticks(rotation=30, ha='right')
+    plt.tight_layout()
     plt.show()
 
-    # Medidas resumen ordinales
+    # ===========================
+    #  Medidas resumen ordinales
     jerarquia_map = {valor: i+1 for i, valor in enumerate(jerarquias)}
     valores_numericos = df[encabezado].map(jerarquia_map).dropna()
     if not valores_numericos.empty:
         mediana = valores_numericos.median()
+        categoria_mediana = jerarquias[int(mediana)-1] if 0 < mediana <= len(jerarquias) else "N/A"
         moda = df[encabezado].mode().values
         
-        # Armamos el DataFrame de resumen con formato visual más claro
         resumen = pd.DataFrame({
-            "Medida": ["Cantidad de datos válidos", "Moda", "Mediana (escala jerárquica)"],
-            "Valor": [valores_numericos.count(), ', '.join(moda), mediana]
+            "Medida": ["Cantidad de datos válidos", "Moda", "Mediana"],
+            "Valor": [valores_numericos.count(), ', '.join(moda), categoria_mediana]
         })
         
         print(f"\nMedidas de resumen para {encabezado}:")
@@ -192,10 +238,9 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
     else:
         print(f"\nNo hay datos válidos para calcular medidas de resumen en {encabezado}")
 
-
     return tabla
 
-# -----------------------------
+
 # Tabla de frecuencias cualitativa nominal
 def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado):
     columnas_tabla = [encabezado, "fi", "fir"]
@@ -213,27 +258,47 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado):
     print(tabla.to_string(index=False))
     mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
 
+    # ================================
     # Gráfico de barras
     plt.figure(figsize=(8,5))
-    plt.bar(frec_abs.index, frec_abs.values)
+    bars = plt.bar(frec_abs.index, frec_abs.values)
+
+    # Valores encima de cada barra
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                 ha='center', va='bottom', fontsize=9)
+
     plt.title(f"Distribución de {encabezado}")
     plt.xlabel(encabezado)
-    plt.ylabel("Frecuencia absoluta")
+    plt.ylabel("Frecuencia absoluta (fi)")
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
 
+    # ================================
+    #  Gráfico de torta
+    plt.figure(figsize=(6,6))
+    plt.pie(frec_abs,
+            labels=frec_abs.index,
+            autopct="%1.1f%%",
+            startangle=90,
+            pctdistance=0.85)
+    plt.title(f"Distribución porcentual de {encabezado}")
+    plt.tight_layout()
+    plt.show()
+
+    # ================================
     # Medidas resumen
+
     moda = frec_abs.idxmax()
     frecuencia_moda = frec_abs.max()
     proporcion_moda = frecuencia_moda / frec_abs.sum()
     cantidad_categorias = len(frec_abs)
 
     resumen = pd.DataFrame({
-        "Moda": [moda],
-        "Frecuencia absoluta de la moda": [frecuencia_moda],
-        "Proporción de la moda": [proporcion_moda],
-        "Cantidad de categorías": [cantidad_categorias]
+        "Medida": ["Moda", "Frecuencia absoluta de la moda", "Proporción de la moda", "Cantidad de categorías"],
+        "Valor": [moda, frecuencia_moda, round(proporcion_moda, 4), cantidad_categorias]
     })
 
     print("\nMedidas de resumen:")
@@ -243,7 +308,8 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado):
     return tabla
 
 
-#-------------------------------
+
+#-------------------------------------FUNCIONES ESPECIFICAS------------------------------------------
 # Prepara los datos para la variable de "Dificultad en el uso de la App PAMI"
 def procesar_variable_dificultad_app(df):
     datos_validos = []
@@ -271,17 +337,17 @@ def procesar_variable_dificultad_app(df):
         jerarquia
     )
 
-#-------------------------------
 # Prepara los datos para la variable de "Nivel de dificultad en el uso de la aplicacion PAMI"
 def procesar_variable_rubro_emprendedores(df):
     df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()];
     armar_tabla_frecuencias_cualitativa_nominal(df_emprendedores,"INICIATIVA_EMPRENDIMIENTO_RUBRO");
 
-#-------------------------------
 # Prepara los datos para la variable de "Cantidad de personas con ingresos en la vivienda"
 def procesar_variable_ingresos_por_persona(df):
     armar_tabla_frecuencias_cuantitativa_discreta(df,"PERSONAS_CON_INGRESOS")
 
+
+#-----------------------------------------MAIN-------------------------------------------------------
 def main(argv=None):
     
     df = pd.read_csv(base_datos);
