@@ -7,7 +7,7 @@ from graficadores import (
 )
 #-------------------------------------FUNCIONES ESPECIFICAS------------------------------------------
 # Prepara los datos para la variable de "Dificultad en el uso de la App PAMI"
-def procesar_variable_dificultad_app(df):
+def procesar_variable_dificultad_app(df, barras=True):
     datos_validos = []
 
     adultos_app = ["ADULTO_MAYOR_1_APP_PAMI",
@@ -30,15 +30,15 @@ def procesar_variable_dificultad_app(df):
     armar_tabla_frecuencias_cualitativa_ordinal(
         pd.DataFrame({"Dificultad": datos_validos}),
         "Dificultad",
-        jerarquia
+        jerarquia, barras
     )
 
 # Prepara los datos para la variable de "Nivel de dificultad en el uso de la aplicacion PAMI"
-def procesar_variable_rubro_emprendedores(df):
+def procesar_variable_rubro_emprendedores(df, barras=True, torta=True):
     df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()];
-    armar_tabla_frecuencias_cualitativa_nominal(df_emprendedores,"INICIATIVA_EMPRENDIMIENTO_RUBRO");
+    armar_tabla_frecuencias_cualitativa_nominal(df_emprendedores,"INICIATIVA_EMPRENDIMIENTO_RUBRO",barras, torta);
 
 # Prepara los datos para la variable de "Cantidad de personas con ingresos en la vivienda"
-def procesar_variable_ingresos_por_persona(df):
-    armar_tabla_frecuencias_cuantitativa_discreta(df,"PERSONAS_CON_INGRESOS")
+def procesar_variable_ingresos_por_persona(df, barras=True, ojiva=True):
+    armar_tabla_frecuencias_cuantitativa_discreta(df,"PERSONAS_CON_INGRESOS",barras,ojiva)
 

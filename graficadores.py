@@ -31,7 +31,7 @@ def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     plt.show()
 
 # Tabla de frecuencias cuantitativa discreta
-def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
+def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras = True, mostrar_ojiva = True):
     columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     # Orden natural de valores
@@ -77,41 +77,42 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado):
     print(resumen.to_string(header=False))
     resumen_reset.columns = ["Medida", "Valor"]
     mostrar_tabla_renderizada(resumen_reset, f"Medidas de resumen: {encabezado}")
-
+    
     # ================================
     #  Gráfico de barras (frecuencia absoluta)
-    plt.figure(figsize=(8,5))
-    bars = plt.bar(frec_abs.index, frec_abs.values)
+    if mostrar_barras:
+        plt.figure(figsize=(8,5))
+        bars = plt.bar(frec_abs.index, frec_abs.values)
 
-    # Etiquetas arriba de barras
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
-                 ha='center', va='bottom')
+        # Etiquetas arriba de barras
+        for bar in bars:
+            yval = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                    ha='center', va='bottom')
 
-    plt.title(f"Distribución de {encabezado}")
-    plt.xlabel(encabezado)
-    plt.ylabel("Frecuencia absoluta")
-    plt.tight_layout()
-    plt.show()
+        plt.title(f"Distribución de {encabezado}")
+        plt.xlabel(encabezado)
+        plt.ylabel("Frecuencia absoluta")
+        plt.tight_layout()
+        plt.show()
 
     # ================================
     #  Ojiva (frecuencia relativa acumulada)
-    plt.figure(figsize=(8,5))
-    plt.plot(frec_rel_acum.index, frec_rel_acum.values, marker='o', linestyle='-', linewidth=2)
-    plt.title(f"Ojiva de {encabezado}")
-    plt.xlabel(encabezado)
-    plt.ylabel("Frecuencia relativa acumulada (%)")
-    plt.grid(alpha=0.3)
-    plt.ylim(0, 105)
-    plt.tight_layout()
-    plt.show()
+    if mostrar_ojiva:
+        plt.figure(figsize=(8,5))
+        plt.plot(frec_rel_acum.index, frec_rel_acum.values, marker='o', linestyle='-', linewidth=2)
+        plt.title(f"Ojiva de {encabezado}")
+        plt.xlabel(encabezado)
+        plt.ylabel("Frecuencia relativa acumulada (%)")
+        plt.grid(alpha=0.3)
+        plt.ylim(0, 105)
+        plt.tight_layout()
+        plt.show()
 
     return tabla, resumen
 
-
 # Tabla de frecuencias cualitativa ordinal
-def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
+def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias, mostrar_barras = True):
     columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     frec_abs = df[encabezado].value_counts().reindex(jerarquias).fillna(0)
@@ -133,21 +134,22 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
 
     # ===========================
     # Gráfico de barras ordenado
-    plt.figure(figsize=(8,5))
-    bars = plt.bar(frec_abs.index, frec_abs.values)
+    if mostrar_barras:
+        plt.figure(figsize=(8,5))
+        bars = plt.bar(frec_abs.index, frec_abs.values)
 
-    # Etiquetas encima de las barras
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
-                 ha='center', va='bottom', fontsize=9)
+        # Etiquetas encima de las barras
+        for bar in bars:
+            yval = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                    ha='center', va='bottom', fontsize=9)
 
-    plt.title(f"Distribución de {encabezado}")
-    plt.xlabel(encabezado)
-    plt.ylabel("Frecuencia absoluta (fi)")
-    plt.xticks(rotation=30, ha='right')
-    plt.tight_layout()
-    plt.show()
+        plt.title(f"Distribución de {encabezado}")
+        plt.xlabel(encabezado)
+        plt.ylabel("Frecuencia absoluta (fi)")
+        plt.xticks(rotation=30, ha='right')
+        plt.tight_layout()
+        plt.show()
 
     # ===========================
     #  Medidas resumen ordinales
@@ -171,9 +173,8 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias):
 
     return tabla
 
-
 # Tabla de frecuencias cualitativa nominal
-def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado):
+def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras = True, mostrar_torta = True):
     columnas_tabla = [encabezado, "fi", "fir"]
 
     frec_abs = df[encabezado].value_counts(dropna=False)
@@ -191,37 +192,38 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado):
 
     # ================================
     # Gráfico de barras
-    plt.figure(figsize=(8,5))
-    bars = plt.bar(frec_abs.index, frec_abs.values)
+    if mostrar_barras:
+        plt.figure(figsize=(8,5))
+        bars = plt.bar(frec_abs.index, frec_abs.values)
 
-    # Valores encima de cada barra
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
-                 ha='center', va='bottom', fontsize=9)
+        # Valores encima de cada barra
+        for bar in bars:
+            yval = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
+                    ha='center', va='bottom', fontsize=9)
 
-    plt.title(f"Distribución de {encabezado}")
-    plt.xlabel(encabezado)
-    plt.ylabel("Frecuencia absoluta (fi)")
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-    plt.show()
+        plt.title(f"Distribución de {encabezado}")
+        plt.xlabel(encabezado)
+        plt.ylabel("Frecuencia absoluta (fi)")
+        plt.xticks(rotation=45, ha="right")
+        plt.tight_layout()
+        plt.show()
 
     # ================================
     #  Gráfico de torta
-    plt.figure(figsize=(6,6))
-    plt.pie(frec_abs,
-            labels=frec_abs.index,
-            autopct="%1.1f%%",
-            startangle=90,
-            pctdistance=0.85)
-    plt.title(f"Distribución porcentual de {encabezado}")
-    plt.tight_layout()
-    plt.show()
+    if mostrar_torta:
+        plt.figure(figsize=(6,6))
+        plt.pie(frec_abs,
+                labels=frec_abs.index,
+                autopct="%1.1f%%",
+                startangle=90,
+                pctdistance=0.85)
+        plt.title(f"Distribución porcentual de {encabezado}")
+        plt.tight_layout()
+        plt.show()
 
     # ================================
     # Medidas resumen
-
     moda = frec_abs.idxmax()
     frecuencia_moda = frec_abs.max()
     proporcion_moda = frecuencia_moda / frec_abs.sum()
