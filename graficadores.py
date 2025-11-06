@@ -1,7 +1,50 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
+
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
+#--- funcion selectora para la desagregacion por barrio, un handler
+def procesar_variable_generica(df, titulo_base, funcion_ejecucion, desagregar_por_barrio=False):
+    """
+    Aplica una función de análisis y graficado a un DataFrame completo
+    y opcionalmente desagrega por barrio.
+
+    Parámetros:
+    - df: DataFrame completo
+    - barrios: lista de barrios
+    - titulo_base: título general
+    - funcion_ejecucion: función que recibe (sub_df, titulo)
+    - desagregar_por_barrio: si True, aplica la función por barrio
+    """
+    if desagregar_por_barrio:
+        por_barrio(df, funcion_ejecucion, titulo_base=titulo_base)
+    else:
+        funcion_ejecucion(df, titulo=titulo_base)
+
+#--- aplica la funcion enviada por parametro a un sub dataframe filtrado por barrio
+def por_barrio(df, funcion, *args, titulo_base="", **kwargs):
+    """
+    Aplica una función a todo el DataFrame y opcionalmente a cada barrio dentro de él.
+   
+    Parámetros:
+    - df: DataFrame completo
+    - barrios: lista de barrios a recorrer
+    - funcion: función a aplicar (por ej. armar_tabla_frecuencias_...)
+    - *args, **kwargs: argumentos que recibe esa función
+    - titulo_base: texto base del título (opcional)
+    """
+    # Análisis global
+    funcion(df, *args, **kwargs, titulo=titulo_base)
+
+    # Desagregación por barrio
+    for barrio in barrios:
+        df_barrio = df[df["BARRIO"] == barrio]
+        titulo_barrio = f"{titulo_base}: {barrio}"
+        funcion(df_barrio, *args, **kwargs, titulo=titulo_barrio)
+
+
+#------------------------------------FUNCIONES DE GRAFICOS Y TABLAS
 # Funcion para mostrar tablas renderizadas con matplotlib
 def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     filas = len(tabla)
@@ -31,8 +74,8 @@ def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     plt.show()
 
 # Tabla de frecuencias cuantitativa discreta
-def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras = True, mostrar_ojiva = True):
-    columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
+def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, titulo, mostrar_barras = True, mostrar_ojiva = True):
+    columnas_tabla = [titulo, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     # Orden natural de valores
     frec_abs = df[encabezado].value_counts().sort_index()
@@ -48,9 +91,9 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras
         columnas_tabla[4]: frec_rel_acum.round(2)
     })
 
-    print(f"\nTabla de frecuencias: {encabezado}")
+    print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
+    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ================================
     #  Medidas de resumen
@@ -73,10 +116,10 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras
     resumen = pd.DataFrame(medidas, index=["Resumen"]).T
     resumen_reset = resumen.reset_index()
 
-    print(f"\nMedidas de resumen {encabezado}")
+    print(f"\nMedidas de resumen {titulo}")
     print(resumen.to_string(header=False))
     resumen_reset.columns = ["Medida", "Valor"]
-    mostrar_tabla_renderizada(resumen_reset, f"Medidas de resumen: {encabezado}")
+    mostrar_tabla_renderizada(resumen_reset, f"Medidas de resumen: {titulo}")
     
     # ================================
     #  Gráfico de barras (frecuencia absoluta)
@@ -90,8 +133,8 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras
             plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
                     ha='center', va='bottom')
 
-        plt.title(f"Distribución de {encabezado}")
-        plt.xlabel(encabezado)
+        plt.title(f"Distribución de {titulo}")
+        plt.xlabel(titulo)
         plt.ylabel("Frecuencia absoluta")
         plt.tight_layout()
         plt.show()
@@ -101,8 +144,8 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras
     if mostrar_ojiva:
         plt.figure(figsize=(8,5))
         plt.plot(frec_rel_acum.index, frec_rel_acum.values, marker='o', linestyle='-', linewidth=2)
-        plt.title(f"Ojiva de {encabezado}")
-        plt.xlabel(encabezado)
+        plt.title(f"Ojiva de {titulo}")
+        plt.xlabel(titulo)
         plt.ylabel("Frecuencia relativa acumulada (%)")
         plt.grid(alpha=0.3)
         plt.ylim(0, 105)
@@ -112,8 +155,8 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, mostrar_barras
     return tabla, resumen
 
 # Tabla de frecuencias cualitativa ordinal
-def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias, mostrar_barras = True):
-    columnas_tabla = [encabezado, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
+def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, titulo, jerarquias, mostrar_barras = True):
+    columnas_tabla = [titulo, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     frec_abs = df[encabezado].value_counts().reindex(jerarquias).fillna(0)
     frec_rel = frec_abs / frec_abs.sum()
@@ -128,9 +171,9 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias, most
         columnas_tabla[4]: frec_rel_acum.round(2)
     })
 
-    print(f"\nTabla de frecuencias: {encabezado}")
+    print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
+    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ===========================
     # Gráfico de barras ordenado
@@ -144,8 +187,8 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias, most
             plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
                     ha='center', va='bottom', fontsize=9)
 
-        plt.title(f"Distribución de {encabezado}")
-        plt.xlabel(encabezado)
+        plt.title(f"Distribución de {titulo}")
+        plt.xlabel(titulo)
         plt.ylabel("Frecuencia absoluta (fi)")
         plt.xticks(rotation=30, ha='right')
         plt.tight_layout()
@@ -165,17 +208,17 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, jerarquias, most
             "Valor": [valores_numericos.count(), ', '.join(moda), categoria_mediana]
         })
         
-        print(f"\nMedidas de resumen para {encabezado}:")
+        print(f"\nMedidas de resumen para {titulo}:")
         print(resumen.to_string(index=False))
-        mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {encabezado}")
+        mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {titulo}")
     else:
-        print(f"\nNo hay datos válidos para calcular medidas de resumen en {encabezado}")
+        print(f"\nNo hay datos válidos para calcular medidas de resumen en {titulo}")
 
     return tabla
 
 # Tabla de frecuencias cualitativa nominal
-def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras = True, mostrar_torta = True):
-    columnas_tabla = [encabezado, "fi", "fir"]
+def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_barras = True, mostrar_torta = True):
+    columnas_tabla = [titulo, "fi", "fir"]
 
     frec_abs = df[encabezado].value_counts(dropna=False)
     frec_rel = frec_abs / frec_abs.sum()
@@ -186,9 +229,9 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras =
         columnas_tabla[2]: frec_rel.round(4)
     })
 
-    print(f"\nTabla de frecuencias: {encabezado}")
+    print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {encabezado}")
+    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ================================
     # Gráfico de barras
@@ -202,8 +245,8 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras =
             plt.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval),
                     ha='center', va='bottom', fontsize=9)
 
-        plt.title(f"Distribución de {encabezado}")
-        plt.xlabel(encabezado)
+        plt.title(f"Distribución de {titulo}")
+        plt.xlabel(titulo)
         plt.ylabel("Frecuencia absoluta (fi)")
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
@@ -218,7 +261,7 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras =
                 autopct="%1.1f%%",
                 startangle=90,
                 pctdistance=0.85)
-        plt.title(f"Distribución porcentual de {encabezado}")
+        plt.title(f"Distribución porcentual de {titulo}")
         plt.tight_layout()
         plt.show()
 
@@ -236,7 +279,7 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado, mostrar_barras =
 
     print("\nMedidas de resumen:")
     print(resumen.to_string(index=False))
-    mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {encabezado}")
+    mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {titulo}")
 
     return tabla
 

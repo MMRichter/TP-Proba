@@ -14,7 +14,7 @@ encabezados = ["MARCA_TEMPORAL",
                "ENCUESTADOR",
                "NRO_ENCUESTA",
                "DIRECCION",
-               "MANZANA",
+               "BARRIO",
                "PERSONAS_CON_INGRESOS",
                "INGRESOS_RELACION_DEPENDENCIA",
                "INGRESOS_INFORMAL_COMPLETO",
@@ -72,17 +72,26 @@ encabezados = ["MARCA_TEMPORAL",
                "REGISTROS_RELEVANTES"
     ];
 
-#-----------------------------------------MAIN-------------------------------------------------------
-def main(argv=None):
-    
+def carga_dataset():
     df = pd.read_csv(base_datos);
     df.columns = encabezados
-    
+
+    df["BARRIO"] = df["BARRIO"].str.split(" - ").str[1].fillna("").str.strip()
+
     df.drop(columns=["MARCA_TEMPORAL", "ENCUESTADOR", "NRO_ENCUESTA", "DIRECCION"], inplace=True)
 
-    procesar_variable_ingresos_por_persona(df);
-    procesar_variable_rubro_emprendedores(df); 
-    procesar_variable_dificultad_app(df);
+    return df;
+
+    
+
+#-----------------------------------------MAIN-------------------------------------------------------
+def main(argv=None):
+
+    df = carga_dataset();
+
+    #procesar_variable_ingresos_por_persona(df,barras=True,ojiva=False, desagregar_por_barrio=True);
+    procesar_variable_rubro_emprendedores(df,torta=False,desagregar_por_barrio=True); 
+    #procesar_variable_dificultad_app(df,barras=True,titulo="Dificultad APP",desagregar_por_barrio=True);
 
 
 if __name__ == "__main__":
