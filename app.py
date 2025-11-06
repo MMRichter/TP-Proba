@@ -3,7 +3,11 @@ import pandas as pd;
 from procesadores import (
     procesar_variable_ingresos_por_persona,
     procesar_variable_rubro_emprendedores,
-    procesar_variable_dificultad_app
+    procesar_variable_dificultad_app,
+    procesar_variable_dificultad_desplazamiento,
+    procesar_variable_uso_aplicacion_pami,
+    procesar_variable_acceso_internet,
+    procesar_variable_uso_celular
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -90,8 +94,12 @@ def main(argv=None):
     df = carga_dataset();
 
     #procesar_variable_ingresos_por_persona(df,barras=True,ojiva=False, desagregar_por_barrio=True);
-    procesar_variable_rubro_emprendedores(df,torta=False,desagregar_por_barrio=True); 
-    #procesar_variable_dificultad_app(df,barras=True,titulo="Dificultad APP",desagregar_por_barrio=True);
+    #procesar_variable_rubro_emprendedores(df,torta=False,desagregar_por_barrio=True); 
+    #procesar_variable_dificultad_app(df,barras=True,desagregar_por_barrio=True);
+    #procesar_variable_dificultad_desplazamiento(df,barras=True,desagregar_por_barrio=False)
+    #procesar_variable_uso_aplicacion_pami(df,barras=False,torta=True,desagregar_por_barrio=True)
+    #procesar_variable_acceso_internet(df,barras=False,torta=True,desagregar_por_barrio=True)
+    #procesar_variable_uso_celular(df,barras=False,torta=True,desagregar_por_barrio=True)
 
 
 if __name__ == "__main__":

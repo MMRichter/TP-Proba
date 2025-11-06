@@ -4,6 +4,50 @@ import matplotlib.pyplot as plt
 barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
 
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
+def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False):
+    """
+    Procesa un conjunto de columnas tipo 'estado' y 'detalle', 
+    generando dos distribuciones:
+      1. Distribución de si presenta o no la condición
+      2. Distribución de los detalles (solo para quienes presentan la condición)
+    """
+
+    def ejecutar(sub_df, titulo=""):
+        # ---Distribución de estado---
+        datos_estado = []
+        for col in columnas_estado:
+            datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
+
+        df_estado = pd.DataFrame({titulo_estado: datos_estado})
+        armar_tabla_frecuencias_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras)
+
+        # --- Distribución de detalle ---
+        datos_detalle = []
+        for col_estado, col_detalle in zip(columnas_estado, columnas_detalle):
+            mask = sub_df[col_estado].astype(str).str.lower() == "sí"
+            # Explota respuestas múltiples separadas por comas
+            detalles = (
+                sub_df.loc[mask, col_detalle]
+                .dropna()
+                .astype(str)
+                .str.split(',')
+                .explode()
+                .str.strip()
+                .loc[lambda s: s != ""]
+            )
+            datos_detalle.extend(detalles.tolist())
+
+        if len(datos_detalle) > 0:
+            df_detalle = pd.DataFrame({titulo_detalle: datos_detalle})
+            armar_tabla_frecuencias_cualitativa_nominal(
+                df_detalle, titulo_detalle, f"{titulo} - Detalles", barras
+            )
+        else:
+            print(f"No se encontraron datos válidos para {titulo_detalle} en {titulo}")
+
+    # Ejecutar análisis global o por barrio
+    procesar_variable_generica(df, titulo_estado, ejecutar, desagregar_por_barrio)
+
 #--- funcion selectora para la desagregacion por barrio, un handler
 def procesar_variable_generica(df, titulo_base, funcion_ejecucion, desagregar_por_barrio=False):
     """
@@ -44,7 +88,7 @@ def por_barrio(df, funcion, *args, titulo_base="", **kwargs):
         funcion(df_barrio, *args, **kwargs, titulo=titulo_barrio)
 
 
-#------------------------------------FUNCIONES DE GRAFICOS Y TABLAS
+#------------------------------------FUNCIONES DE GRAFICOS Y TABLAS----------------------------------
 # Funcion para mostrar tablas renderizadas con matplotlib
 def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     filas = len(tabla)
@@ -217,7 +261,7 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, titulo, jerarqui
     return tabla
 
 # Tabla de frecuencias cualitativa nominal
-def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_barras = True, mostrar_torta = True):
+def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_barras = True, mostrar_torta = False):
     columnas_tabla = [titulo, "fi", "fir"]
 
     frec_abs = df[encabezado].value_counts(dropna=False)
