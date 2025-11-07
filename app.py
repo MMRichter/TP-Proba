@@ -10,7 +10,12 @@ from procesadores import (
     procesar_variable_uso_celular,
     procesar_variable_tipos_ingresos,
     procesar_variable_personas_buscando_trabajo,
-    procesar_variable_personas_buscando_trabajo_tiempo
+    procesar_variable_personas_buscando_trabajo_tiempo,
+    procesar_variable_habilitacion_emprendimientos,
+    procesar_variable_distribucion_edad_menores_rango,
+    procesar_variable_distribucion_menores,
+    procesar_variable_menores_escolarizados,
+    procesar_variable_escolarizacion_en_barrio
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -89,23 +94,28 @@ def carga_dataset():
 
     return df;
 
-    
-
 #-----------------------------------------MAIN-------------------------------------------------------
 def main(argv=None):
 
     df = carga_dataset();
 
-    #procesar_variable_ingresos_por_persona(df,barras=True,ojiva=False, desagregar_por_barrio=True);
+    #procesar_variable_ingresos_por_persona(df,barras=True,ojiva=True, desagregar_por_barrio=False);
     #procesar_variable_rubro_emprendedores(df,torta=False,desagregar_por_barrio=True); 
     #procesar_variable_dificultad_app(df,barras=True,desagregar_por_barrio=True);
     #procesar_variable_dificultad_desplazamiento(df,barras=True,desagregar_por_barrio=False)
     #procesar_variable_uso_aplicacion_pami(df,barras=False,torta=True,desagregar_por_barrio=True)
-    procesar_variable_acceso_internet(df,barras=False,torta=True,desagregar_por_barrio=True)
+    #procesar_variable_acceso_internet(df,barras=False,torta=True,desagregar_por_barrio=True)
     #procesar_variable_uso_celular(df,barras=False,torta=True,desagregar_por_barrio=True)
     #procesar_variable_tipos_ingresos(df,barras=True,desagregar_por_barrio=True)
     #procesar_variable_personas_buscando_trabajo(df,barras=True,ojiva=False,desagregar_por_barrio=True)
     #procesar_variable_personas_buscando_trabajo_tiempo(df,barras=True,torta=False,desagregar_por_barrio=True)
+    #procesar_variable_habilitacion_emprendimientos(df,barras=False, torta=True,desagregar_por_barrio=True)
+    #procesar_variable_distribucion_edad_menores(df,barras=True,desagregar_por_barrio=True)
+    #procesar_variable_distribucion_menores(df,barras=False,ojiva=False,desagregar_por_barrio=False)
+    #procesar_variable_menores_escolarizados(df,barras=True,torta=False,desagregar_por_barrio=True)
+    #procesar_variable_escolarizacion_en_barrio(df,barras=False,torta=True,desagregar_por_barrio=True)
+
+
 
 
 if __name__ == "__main__":

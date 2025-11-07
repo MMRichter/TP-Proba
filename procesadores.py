@@ -7,7 +7,8 @@ from graficadores import (
     procesar_variable_generica,
     procesar_variable_doble_respuesta_nominal,
     procesar_variable_multi_columna_nominal,
-    procesar_variable_multi_columna_cualitativa
+    procesar_variable_multi_columna_cualitativa,
+    procesar_variable_multi_columna_ordinal
 )
 
 #-------------------------------------FUNCIONES ESPECIFICAS------------------------------------------
@@ -101,7 +102,6 @@ def procesar_variable_acceso_internet(df, barras=False, torta=True, desagregar_p
         desagregar_por_barrio=desagregar_por_barrio
     )
 
-
 #Variable Usa celular Si-No
 def procesar_variable_uso_celular(df, barras=False, torta=True, desagregar_por_barrio=False):
     def ejecutar(sub_df, titulo=""):
@@ -171,3 +171,78 @@ def procesar_variable_personas_buscando_trabajo_tiempo(df, barras=True, ojiva=Tr
         )
 
     procesar_variable_generica(df, "Tiempo buscando trabajo (En Meses)", ejecutar, desagregar_por_barrio)
+
+def procesar_variable_habilitacion_emprendimientos(df, barras=False, torta=True, desagregar_por_barrio=False):
+    """
+    Genera la distribución de personas que disponen de habilitación/carnet de alimentos
+    entre quienes declararon tener una iniciativa de emprendimiento en el rubro 'Alimentos'.
+    """
+    
+    def ejecutar(sub_df, titulo=""):
+        filtro_alimentos = sub_df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].astype(str).str.lower() == "alimentos"
+        df_filtrado = sub_df.loc[filtro_alimentos].copy()
+
+        if df_filtrado.empty:
+            print(f"No hay registros de emprendimientos del rubro Alimentos en {titulo}")
+            return
+
+        datos_habilitacion = df_filtrado["DISPONE_HABILITACION_CARNET_ALIMENTOS"].dropna().astype(str).tolist()
+
+        if len(datos_habilitacion) == 0:
+            print(f"No hay datos de habilitación disponibles en {titulo}")
+            return
+
+        df_habilitacion = pd.DataFrame({"Habilitación carnet alimentos": datos_habilitacion})
+        graficar_cualitativa_nominal(
+            df_habilitacion,
+            "Habilitación carnet alimentos",
+            f"{titulo} - Rubro Alimentos",
+            barras,
+            torta
+        )
+
+    procesar_variable_generica(df, "Habilitación en emprendimientos de alimentos", ejecutar, desagregar_por_barrio)
+
+def procesar_variable_distribucion_edad_menores_rango(df, barras=True, desagregar_por_barrio=False):
+    columnas_menores = {
+        "MENORES_0_2": "0-2 años",
+        "MENORES_3_5": "3-5 años",
+        "MENORES_6_11": "6-11 años",
+        "MENORES_12_18": "12-18 años"
+    }
+
+    jerarquia = ["0-2 años", "3-5 años", "6-11 años", "12-18 años"]
+
+    procesar_variable_multi_columna_ordinal(
+        df,
+        columnas_menores,
+        nombre_variable="Edad de menores",
+        titulo_base="Distribución de edad de menores",
+        jerarquia=jerarquia,
+        barras=barras,
+        desagregar_por_barrio=desagregar_por_barrio
+    )
+
+def procesar_variable_distribucion_menores(df,barras=True,ojiva=False,desagregar_por_barrio=False):
+    def ejecutar(sub_df, titulo=""):
+        graficar_cuantitativa_discreta(sub_df,"PERSONAS_MENORES_EN_HOGAR",titulo,barras,ojiva)
+    
+    procesar_variable_generica(df,"Menores de edad por vivienda", ejecutar, desagregar_por_barrio)
+
+def procesar_variable_menores_escolarizados(df, barras=False, torta=True, desagregar_por_barrio=False):
+    def ejecutar(sub_df, titulo=""):
+        columnas_estado = ["MENORES_INSTITUCIONES_EDUCATIVAS_EN_BARRIO","MENORES_INSTITUCIONES_EDUCATIVAS_FUERA_BARRIO"]
+        datos_estado = []
+        for col in columnas_estado:
+            datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
+
+        df_estado = pd.DataFrame({titulo: datos_estado})
+        graficar_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
+
+    procesar_variable_generica(df,"Escolarizacion",ejecutar,desagregar_por_barrio)
+
+def procesar_variable_escolarizacion_en_barrio(df, barras=False, torta=True, desagregar_por_barrio=False):
+    columnas={"MENORES_INSTITUCIONES_EDUCATIVAS_EN_BARRIO" : "Escolarizados en el Barrio",
+                "MENORES_INSTITUCIONES_EDUCATIVAS_FUERA_BARRIO" : "Escolarizados fuera del Barrio"}
+
+    procesar_variable_multi_columna_nominal(df,columnas,"ESC","Lugar de escolarizacion",barras,torta,desagregar_por_barrio)

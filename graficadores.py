@@ -116,6 +116,48 @@ def procesar_variable_multi_columna_cualitativa(
     # Ejecutar el procesamiento global o por barrio
     procesar_variable_generica(df, titulo_base, ejecutar, desagregar_por_barrio)
 
+
+def procesar_variable_multi_columna_ordinal(
+    df,
+    columnas_dict,
+    nombre_variable,
+    titulo_base,
+    jerarquia,
+    barras=True,
+    mostrar_torta=False,
+    desagregar_por_barrio=False
+):
+    """
+    Procesa variables cualitativas ordinales cuyos datos están distribuidos en varias columnas numéricas,
+    donde cada columna representa una categoría ordenada y el valor indica la cantidad de personas
+    en esa categoría por vivienda.
+    """
+
+    def ejecutar(sub_df, titulo=""):
+        sub_df_num = sub_df[list(columnas_dict.keys())].apply(pd.to_numeric, errors="coerce").fillna(0)
+        totales = sub_df_num.sum()
+
+        registros = []
+        for col, total in totales.items():
+            registros.extend([columnas_dict[col]] * int(total))
+
+        if len(registros) == 0:
+            print(f"No hay datos válidos para {titulo}")
+            return
+
+        df_resultado = pd.DataFrame({nombre_variable: registros})
+
+        # Generar tabla de frecuencias ordinal
+        graficar_cualitativa_ordinal(
+            df_resultado,
+            nombre_variable,
+            titulo,
+            jerarquia,
+            barras
+        )
+
+    procesar_variable_generica(df, titulo_base, ejecutar, desagregar_por_barrio)
+
 #--- funcion para variables donde los datos provienen de varias columnas 
 # columnas numéricas, donde cada columna representa una categoría y los valores indican cuántas personas hay en esa categoría----
 def procesar_variable_multi_columna_nominal(
