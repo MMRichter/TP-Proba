@@ -1,11 +1,13 @@
 import pandas as pd
 
 from graficadores import (
-    armar_tabla_frecuencias_cualitativa_nominal,
-    armar_tabla_frecuencias_cualitativa_ordinal,
-    armar_tabla_frecuencias_cuantitativa_discreta,
+    graficar_cualitativa_nominal,
+    graficar_cualitativa_ordinal,
+    graficar_cuantitativa_discreta,
     procesar_variable_generica,
-    procesar_variable_doble_respuesta_nominal
+    procesar_variable_doble_respuesta_nominal,
+    procesar_variable_multi_columna_nominal,
+    procesar_variable_multi_columna_cualitativa
 )
 
 #-------------------------------------FUNCIONES ESPECIFICAS------------------------------------------
@@ -28,7 +30,7 @@ def procesar_variable_dificultad_app(df, barras=True, desagregar_por_barrio=Fals
         jerarquia = ["Fácil", "Moderada", "Difícil"]
 
         df_dificultad = pd.DataFrame({"Dificultad": datos_validos})
-        armar_tabla_frecuencias_cualitativa_ordinal(
+        graficar_cualitativa_ordinal(
             df_dificultad,
             "Dificultad",
             titulo,
@@ -46,7 +48,7 @@ def procesar_variable_uso_aplicacion_pami(df, barras=False, torta=True, desagreg
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo: datos_estado})
-        armar_tabla_frecuencias_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
+        graficar_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
 
     procesar_variable_generica(df,"Uso de la APP Pami",ejecutar,desagregar_por_barrio)
 
@@ -54,14 +56,14 @@ def procesar_variable_uso_aplicacion_pami(df, barras=False, torta=True, desagreg
 def procesar_variable_rubro_emprendedores(df, barras=True, torta=True, desagregar_por_barrio=False):
     df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()];
     def ejecutar(sub_df, titulo=""):
-        armar_tabla_frecuencias_cualitativa_nominal(sub_df,"INICIATIVA_EMPRENDIMIENTO_RUBRO",titulo,barras, torta);
+        graficar_cualitativa_nominal(sub_df,"INICIATIVA_EMPRENDIMIENTO_RUBRO",titulo,barras, torta);
 
     procesar_variable_generica(df_emprendedores,"Rubros de emprendimientos", ejecutar,desagregar_por_barrio);
 
 # Prepara los datos para la variable de "Cantidad de personas con ingresos en la vivienda"
 def procesar_variable_ingresos_por_persona(df, barras=True, ojiva=True, desagregar_por_barrio=False):
     def ejecutar(sub_df, titulo=""):
-        armar_tabla_frecuencias_cuantitativa_discreta(sub_df,"PERSONAS_CON_INGRESOS",titulo,barras,ojiva)
+        graficar_cuantitativa_discreta(sub_df,"PERSONAS_CON_INGRESOS",titulo,barras,ojiva)
     
     procesar_variable_generica(df,"Personas con ingresos",ejecutar,desagregar_por_barrio)
 
@@ -83,16 +85,22 @@ def procesar_variable_dificultad_desplazamiento(df, barras=True, desagregar_por_
 
 #Variable Acceso a internet Si-No
 def procesar_variable_acceso_internet(df, barras=False, torta=True, desagregar_por_barrio=False):
-    def ejecutar(sub_df, titulo=""):
-        columnas_estado = ["ADULTO_MAYOR_1_SERVICIO_INTERNET","ADULTO_MAYOR_2_SERVICIO_INTERNET","ADULTO_MAYOR_3_SERVICIO_INTERNET"]
-        datos_estado = []
-        for col in columnas_estado:
-            datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
+    columnas_estado = [
+        "ADULTO_MAYOR_1_SERVICIO_INTERNET",
+        "ADULTO_MAYOR_2_SERVICIO_INTERNET",
+        "ADULTO_MAYOR_3_SERVICIO_INTERNET"
+    ]
 
-        df_estado = pd.DataFrame({titulo: datos_estado})
-        armar_tabla_frecuencias_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
+    procesar_variable_multi_columna_cualitativa(
+        df,
+        columnas=columnas_estado,
+        nombre_variable="Acceso a servicio de Internet",
+        titulo_base="Acceso a servicio de Internet",
+        barras=barras,
+        mostrar_torta=torta,
+        desagregar_por_barrio=desagregar_por_barrio
+    )
 
-    procesar_variable_generica(df,"Acceso a servicio de Internet",ejecutar,desagregar_por_barrio)
 
 #Variable Usa celular Si-No
 def procesar_variable_uso_celular(df, barras=False, torta=True, desagregar_por_barrio=False):
@@ -103,6 +111,63 @@ def procesar_variable_uso_celular(df, barras=False, torta=True, desagregar_por_b
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo: datos_estado})
-        armar_tabla_frecuencias_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
+        graficar_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
 
     procesar_variable_generica(df,"Posee Celular",ejecutar,desagregar_por_barrio)
+
+#variable tipo de ingresos por vivienda
+def procesar_variable_tipos_ingresos(df, barras=True, torta=False, desagregar_por_barrio=False):
+    columnas_ingresos = {
+        "INGRESOS_RELACION_DEPENDENCIA": "Relación de dependencia",
+        "INGRESOS_INFORMAL_COMPLETO": "Informal completo",
+        "INGRESOS_INFORMAL_TEMPORARIO": "Informal temporal",
+        "INGRESOS_JUBILADOS_PENSIONADOS": "Jubilados / Pensionados",
+        "INGRESOS_AUTONOMOS": "Autónomos",
+        "INGRESOS_EMPRENDEDORES": "Emprendedores",
+        "INGRESOS_PLANES_SOCIALES": "Planes sociales",
+        "INGRESOS_OTRAS_FUENTES": "Otras fuentes"
+    }
+
+    # Procesamiento global o por barrio, reutilizando tu función estándar
+    procesar_variable_multi_columna_nominal(df,columnas_ingresos,"Tipos de Ingresos","Tipos de Ingresos",barras,torta,desagregar_por_barrio)
+
+#Variable personas buscando trabajo por vivienda
+def procesar_variable_personas_buscando_trabajo(df, barras=True, ojiva=True, desagregar_por_barrio = False):
+    def ejecutar(sub_df, titulo=""):
+        graficar_cuantitativa_discreta(sub_df,"PERSONAS_BUSCANDO_TRABAJO", titulo, barras,ojiva)
+
+    procesar_variable_generica(df,"Personas buscando trabajo por vivienda",ejecutar,desagregar_por_barrio)
+
+#Variable tiempo buscando trabajo por persona
+def procesar_variable_personas_buscando_trabajo_tiempo(df, barras=True, ojiva=True,torta=False, desagregar_por_barrio=False):
+    def ejecutar(sub_df, titulo=""):
+        columnas_tiempo = [
+            "TIEMPO_BUSCANDO_TRABAJO_PERSONA_1",
+            "TIEMPO_BUSCANDO_TRABAJO_PERSONA_2",
+            "TIEMPO_BUSCANDO_TRABAJO_PERSONA_3",
+            "TIEMPO_BUSCANDO_TRABAJO_PERSONA_4"
+        ]
+        
+        # Recolectar todos los valores numéricos válidos
+        datos_tiempo = []
+        for col in columnas_tiempo:
+            datos_tiempo.extend(
+                pd.to_numeric(sub_df[col], errors="coerce").dropna().tolist()
+            )
+
+        # Crear DataFrame
+        df_tiempo = pd.DataFrame({"Meses buscando trabajo": datos_tiempo})
+
+        # Ordenar de menor a mayor
+        df_tiempo.sort_values(by="Meses buscando trabajo", inplace=True)
+
+        # Generar tabla (discreta, porque es numérica)
+        graficar_cuantitativa_discreta(
+            df_tiempo,
+            "Meses buscando trabajo",
+            titulo,
+            barras,
+            ojiva
+        )
+
+    procesar_variable_generica(df, "Tiempo buscando trabajo (En Meses)", ejecutar, desagregar_por_barrio)

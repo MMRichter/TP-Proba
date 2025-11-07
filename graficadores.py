@@ -19,7 +19,7 @@ def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_deta
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo_estado: datos_estado})
-        armar_tabla_frecuencias_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras)
+        graficar_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras)
 
         # --- Distribución de detalle ---
         datos_detalle = []
@@ -39,7 +39,7 @@ def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_deta
 
         if len(datos_detalle) > 0:
             df_detalle = pd.DataFrame({titulo_detalle: datos_detalle})
-            armar_tabla_frecuencias_cualitativa_nominal(
+            graficar_cualitativa_nominal(
                 df_detalle, titulo_detalle, f"{titulo} - Detalles", barras
             )
         else:
@@ -66,6 +66,108 @@ def procesar_variable_generica(df, titulo_base, funcion_ejecucion, desagregar_po
     else:
         funcion_ejecucion(df, titulo=titulo_base)
 
+# - casos donde cada columna representa la misma pregunta repetida en varias personas.
+def procesar_variable_multi_columna_cualitativa(
+                                                df,
+                                                columnas,
+                                                nombre_variable,
+                                                titulo_base,
+                                                barras=True,
+                                                mostrar_torta=False,
+                                                desagregar_por_barrio=False
+                                            ):
+    """
+    Procesa variables cualitativas nominales donde los datos están distribuidos
+    en varias columnas que contienen respuestas individuales (no cantidades numéricas).
+
+    Ejemplo: SERVICIO_INTERNET_PERSONA_1, SERVICIO_INTERNET_PERSONA_2, ...
+
+    Parámetros:
+    - df: DataFrame completo.
+    - columnas: lista de nombres de columnas.
+    - nombre_variable: nombre de la nueva variable cualitativa.
+    - titulo_base: título general para gráficos/tablas.
+    - barras: si se grafican barras.
+    - mostrar_torta: si se grafican tortas.
+    - desagregar_por_barrio: si se hace análisis por barrio.
+    """
+
+    def ejecutar(sub_df, titulo=""):
+        # Recolectar todos los valores no nulos de las columnas dadas
+        datos = []
+        for col in columnas:
+            datos.extend(sub_df[col].dropna().astype(str).tolist())
+
+        if len(datos) == 0:
+            print(f"No hay datos válidos para {titulo}")
+            return
+
+        df_resultado = pd.DataFrame({nombre_variable: datos})
+
+        # Generar tabla y gráficos
+        graficar_cualitativa_nominal(
+            df_resultado,
+            nombre_variable,
+            titulo,
+            barras,
+            mostrar_torta
+        )
+
+    # Ejecutar el procesamiento global o por barrio
+    procesar_variable_generica(df, titulo_base, ejecutar, desagregar_por_barrio)
+
+#--- funcion para variables donde los datos provienen de varias columnas 
+# columnas numéricas, donde cada columna representa una categoría y los valores indican cuántas personas hay en esa categoría----
+def procesar_variable_multi_columna_nominal(
+                                            df,
+                                            columnas_dict,
+                                            nombre_variable,
+                                            titulo_base,
+                                            barras=True,
+                                            mostrar_torta=False,
+                                            desagregar_por_barrio=False
+                                        ):
+    """
+    Procesa variables cualitativas nominales cuyos datos están distribuidos en varias columnas numéricas,
+    donde cada columna representa una categoría y el valor indica la cantidad de personas en esa categoría.
+
+    Parámetros:
+    - df: DataFrame completo.
+    - columnas_dict: dict {nombre_columna: etiqueta_legible}.
+    - nombre_variable: nombre de la nueva variable cualitativa (para el DataFrame resultante).
+    - titulo_base: título general para gráficos/tablas.
+    - barras: si se grafican barras.
+    - mostrar_torta: si se grafican tortas.
+    - desagregar_por_barrio: si se hace análisis por barrio.
+    """
+
+    def ejecutar(sub_df, titulo=""):
+        sub_df_num = sub_df[list(columnas_dict.keys())].apply(pd.to_numeric, errors="coerce").fillna(0)
+
+        totales = sub_df_num.sum()
+
+        registros = []
+        for col, total in totales.items():
+            registros.extend([columnas_dict[col]] * int(total))
+
+        if len(registros) == 0:
+            print(f"No hay datos válidos para {titulo}")
+            return
+
+        df_resultado = pd.DataFrame({nombre_variable: registros})
+
+        # Generar tabla de frecuencias
+        graficar_cualitativa_nominal(
+            df_resultado,
+            nombre_variable,
+            titulo,
+            barras,
+            mostrar_torta
+        )
+
+    # Llamar al procesador genérico
+    procesar_variable_generica(df, titulo_base, ejecutar, desagregar_por_barrio)
+
 #--- aplica la funcion enviada por parametro a un sub dataframe filtrado por barrio
 def por_barrio(df, funcion, *args, titulo_base="", **kwargs):
     """
@@ -90,7 +192,7 @@ def por_barrio(df, funcion, *args, titulo_base="", **kwargs):
 
 #------------------------------------FUNCIONES DE GRAFICOS Y TABLAS----------------------------------
 # Funcion para mostrar tablas renderizadas con matplotlib
-def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
+def mostrar_tabla(tabla, titulo="Tabla"):
     filas = len(tabla)
     columnas = len(tabla.columns)
 
@@ -118,7 +220,10 @@ def mostrar_tabla_renderizada(tabla, titulo="Tabla"):
     plt.show()
 
 # Tabla de frecuencias cuantitativa discreta
-def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, titulo, mostrar_barras = True, mostrar_ojiva = True):
+def graficar_cuantitativa_discreta(df, encabezado, titulo, 
+                                   mostrar_barras = True,
+                                   mostrar_ojiva = True):
+    
     columnas_tabla = [titulo, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     # Orden natural de valores
@@ -137,7 +242,7 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, titulo, mostra
 
     print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
+    mostrar_tabla(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ================================
     #  Medidas de resumen
@@ -163,7 +268,7 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, titulo, mostra
     print(f"\nMedidas de resumen {titulo}")
     print(resumen.to_string(header=False))
     resumen_reset.columns = ["Medida", "Valor"]
-    mostrar_tabla_renderizada(resumen_reset, f"Medidas de resumen: {titulo}")
+    mostrar_tabla(resumen_reset, f"Medidas de resumen: {titulo}")
     
     # ================================
     #  Gráfico de barras (frecuencia absoluta)
@@ -199,7 +304,8 @@ def armar_tabla_frecuencias_cuantitativa_discreta(df, encabezado, titulo, mostra
     return tabla, resumen
 
 # Tabla de frecuencias cualitativa ordinal
-def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, titulo, jerarquias, mostrar_barras = True):
+def graficar_cualitativa_ordinal(df, encabezado, titulo, jerarquias,
+                                  mostrar_barras = True):
     columnas_tabla = [titulo, "fi", "fir", "Fa ↑", "Fa ↑(%)"]
     
     frec_abs = df[encabezado].value_counts().reindex(jerarquias).fillna(0)
@@ -217,7 +323,7 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, titulo, jerarqui
 
     print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
+    mostrar_tabla(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ===========================
     # Gráfico de barras ordenado
@@ -254,14 +360,16 @@ def armar_tabla_frecuencias_cualitativa_ordinal(df, encabezado, titulo, jerarqui
         
         print(f"\nMedidas de resumen para {titulo}:")
         print(resumen.to_string(index=False))
-        mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {titulo}")
+        mostrar_tabla(resumen, f"Medidas de resumen: {titulo}")
     else:
         print(f"\nNo hay datos válidos para calcular medidas de resumen en {titulo}")
 
     return tabla
 
 # Tabla de frecuencias cualitativa nominal
-def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_barras = True, mostrar_torta = False):
+def graficar_cualitativa_nominal(df, encabezado,titulo, 
+                                 mostrar_barras = True, 
+                                 mostrar_torta = False):
     columnas_tabla = [titulo, "fi", "fir"]
 
     frec_abs = df[encabezado].value_counts(dropna=False)
@@ -275,7 +383,7 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_b
 
     print(f"\nTabla de frecuencias: {titulo}")
     print(tabla.to_string(index=False))
-    mostrar_tabla_renderizada(tabla, f"Tabla de frecuencias: {titulo}")
+    mostrar_tabla(tabla, f"Tabla de frecuencias: {titulo}")
 
     # ================================
     # Gráfico de barras
@@ -323,7 +431,7 @@ def armar_tabla_frecuencias_cualitativa_nominal(df, encabezado,titulo, mostrar_b
 
     print("\nMedidas de resumen:")
     print(resumen.to_string(index=False))
-    mostrar_tabla_renderizada(resumen, f"Medidas de resumen: {titulo}")
+    mostrar_tabla(resumen, f"Medidas de resumen: {titulo}")
 
     return tabla
 
