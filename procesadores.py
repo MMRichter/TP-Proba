@@ -53,7 +53,7 @@ def procesar_variable_uso_aplicacion_pami(df, barras=False, torta=True, desagreg
 
     procesar_variable_generica(df,"Uso de la APP Pami",ejecutar,desagregar_por_barrio)
 
-# Prepara los datos para la variable de "Nivel de dificultad en el uso de la aplicacion PAMI"
+# Prepara los datos para la variable de "rubro emprendimientos"
 def procesar_variable_rubro_emprendedores(df, barras=True, torta=True, desagregar_por_barrio=False):
     df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()];
     def ejecutar(sub_df, titulo=""):
@@ -317,3 +317,11 @@ def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=Fa
         graficar_cuantitativa_discreta(sub_df,"INGRESOS_JUBILADOS_PENSIONADOS",titulo,barras,ojiva)
     
     procesar_variable_generica(df,"Jubilados/Pensionados por vivienda", ejecutar, desagregar_por_barrio)
+
+# Prepara los datos para la variable de "distribucion de cuidados de menores"
+def procesar_variable_distribucion_cuidado_menores(df, barras=True, torta=True, desagregar_por_barrio=False):
+    df_cuidadores = df[df["MENORES_DISTRIBUCION_CUIDADO"].notna()];
+    def ejecutar(sub_df, titulo=""):
+        graficar_cualitativa_nominal(sub_df,"MENORES_DISTRIBUCION_CUIDADO",titulo,barras, torta);
+
+    procesar_variable_generica(df_cuidadores,"Distribucion de cuidados de menores", ejecutar,desagregar_por_barrio);

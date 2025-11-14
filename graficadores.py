@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
+barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"]
 
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
 def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False, torta = False):
