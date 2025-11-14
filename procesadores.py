@@ -296,3 +296,19 @@ def procesar_variable_adultos_mayores(df, barras=True, desagregar_por_barrio=Fal
         ejecutar,
         desagregar_por_barrio
     )
+
+def procesar_variable_adultos_mayores_lugares_referencia_categorias(df, detalle_barras=True, estado_torta=True, desagregar_por_barrio=False):
+    columnas_estado = [
+        "ADULTO_MAYOR_1_REFERENCIA_BARRIAL",
+        "ADULTO_MAYOR_2_REFERENCIA_BARRIAL",
+        "ADULTO_MAYOR_3_REFERENCIA_BARRIAL"
+    ]
+    columnas_detalle = [
+        "ADULTO_MAYOR_1_DETALLE_REFERENCIA",
+        "ADULTO_MAYOR_2_DETALLE_REFERENCIA",
+        "ADULTO_MAYOR_3_DETALLE_REFERENCIA"
+    ]
+
+    procesar_variable_doble_respuesta_nominal(df,columnas_estado,columnas_detalle,titulo_estado="Presencia de referencia barrial",titulo_detalle="Lugar de referencia",
+        barras=detalle_barras, desagregar_por_barrio=desagregar_por_barrio,torta=estado_torta)
+

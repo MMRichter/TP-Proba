@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
 
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
-def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False):
+def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False, torta = False):
     """
     Procesa un conjunto de columnas tipo 'estado' y 'detalle', 
     generando dos distribuciones:
@@ -19,7 +19,7 @@ def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_deta
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo_estado: datos_estado})
-        graficar_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras)
+        graficar_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras,torta)
 
         # --- Distribución de detalle ---
         datos_detalle = []
