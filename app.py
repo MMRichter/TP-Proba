@@ -12,7 +12,8 @@ from procesadores import (
     procesar_variable_personas_buscando_trabajo,
     procesar_variable_personas_buscando_trabajo_tiempo,
     procesar_variable_adultos_mayores,
-    procesar_variable_adultos_mayores_lugares_referencia_categorias
+    procesar_variable_adultos_mayores_lugares_referencia_categorias,
+    procesar_variable_distribucion_jubilados_pensionados
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -105,12 +106,21 @@ def main(argv=None):
     #procesar_variable_uso_aplicacion_pami(df,barras=False,torta=True,desagregar_por_barrio=True)
     #procesar_variable_acceso_internet(df,barras=False,torta=True,desagregar_por_barrio=True)
     #procesar_variable_uso_celular(df,barras=False,torta=True,desagregar_por_barrio=True)
-    #procesar_variable_tipos_ingresos(df,barras=True,desagregar_por_barrio=True)
+    procesar_variable_tipos_ingresos(df,barras=True,desagregar_por_barrio=False)
     #procesar_variable_personas_buscando_trabajo(df,barras=True,ojiva=False,desagregar_por_barrio=True)
     #procesar_variable_personas_buscando_trabajo_tiempo(df,barras=True,torta=False,desagregar_por_barrio=True)
-    #procesar_variable_adultos_mayores(df,barras=True,desagregar_por_barrio=False);
     
+    #14/11 - ISSUES
+    #Revisar ceros
+    #procesar_variable_adultos_mayores(df,barras=True,desagregar_por_barrio=False);
+
+    #Normalizar encuesta, nombres repetidos
     #procesar_variable_adultos_mayores_lugares_referencia_categorias(df,detalle_barras=True,desagregar_por_barrio=True,estado_torta=True)
+
+    #Revisar ceros
+    #procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False)
+
+
 
 if __name__ == "__main__":
     
