@@ -246,3 +246,53 @@ def procesar_variable_escolarizacion_en_barrio(df, barras=False, torta=True, des
                 "MENORES_INSTITUCIONES_EDUCATIVAS_FUERA_BARRIO" : "Escolarizados fuera del Barrio"}
 
     procesar_variable_multi_columna_nominal(df,columnas,"ESC","Lugar de escolarizacion",barras,torta,desagregar_por_barrio)
+
+def procesar_variable_adultos_mayores(df, barras=True, desagregar_por_barrio=False):
+
+    def ejecutar(sub_df, titulo=""):
+
+        # 1. Detectamos las columnas de cada adulto
+        grupos = {
+            1: [col for col in sub_df.columns if col.startswith("ADULTO_MAYOR_1_")],
+            2: [col for col in sub_df.columns if col.startswith("ADULTO_MAYOR_2_")],
+            3: [col for col in sub_df.columns if col.startswith("ADULTO_MAYOR_3_")]
+        }
+
+        # 2. Estimamos la cantidad por vivienda (fila por fila)
+        estimaciones = []
+        for i, row in sub_df.iterrows():
+            count = 0
+            for adult_id, cols in grupos.items():
+                if len(cols) == 0:
+                    continue
+                
+                # Adulto existe si:
+                # - Tiene algún dato no NaN
+                # - No todos los datos están vacíos / "0" / "no"
+                if row[cols].notna().any():
+                    valores = row[cols].astype(str).str.strip().str.lower()
+                    if not valores.isin(["", "0", "no", "nan"]).all():
+                        count += 1
+
+            estimaciones.append(count)
+
+        df_temp = pd.DataFrame({
+            "Cantidad de adultos mayores": estimaciones
+        })
+
+        # 3. Generamos la tabla de frecuencias nominal
+        graficar_cualitativa_nominal(
+            df_temp,
+            "Cantidad de adultos mayores",
+            titulo,
+            barras,
+            mostrar_torta=False
+        )
+
+    # Mantengo tu framework genérico
+    procesar_variable_generica(
+        df,
+        "Adultos mayores por vivienda",
+        ejecutar,
+        desagregar_por_barrio
+    )
