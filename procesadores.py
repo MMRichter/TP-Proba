@@ -325,3 +325,10 @@ def procesar_variable_distribucion_cuidado_menores(df, barras=True, torta=True, 
         graficar_cualitativa_nominal(sub_df,"MENORES_DISTRIBUCION_CUIDADO",titulo,barras, torta);
 
     procesar_variable_generica(df_cuidadores,"Distribucion de cuidados de menores", ejecutar,desagregar_por_barrio);
+
+def procesar_variable_menores_actividades_recreativas(df, barras=False, ojiva=True, desagregar_por_barrio=False):
+    #df_recretivas=df[df["MENORES_ACTIVIDADES_EXTRACURRICULARES"].notna()]
+    def ejecutar(sub_df, titulo=""):
+        graficar_cuantitativa_discreta(sub_df,"MENORES_ACTIVIDADES_EXTRACURRICULARES",titulo,barras,ojiva)
+
+    procesar_variable_generica(df,"Menores recreativas por vivienda", ejecutar, desagregar_por_barrio)

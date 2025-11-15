@@ -14,7 +14,8 @@ from procesadores import (
     procesar_variable_adultos_mayores,
     procesar_variable_adultos_mayores_lugares_referencia_categorias,
     procesar_variable_distribucion_jubilados_pensionados,
-    procesar_variable_distribucion_cuidado_menores
+    procesar_variable_distribucion_cuidado_menores,
+    procesar_variable_menores_actividades_recreativas
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -123,8 +124,10 @@ def main(argv=None):
 
     #Revisar ingresos de cuidadores: La encuesta solo debe incluir los que la distribucion de cuidados sea
     #   "Principalmente 1 persona", sanitizar encuesta
-    #procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=False)
+    #procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=True)
 
+    #Revisar no muestra nombre del barrio en las tablas
+    procesar_variable_menores_actividades_recreativas(df,barras=False,ojiva=True,desagregar_por_barrio=True)
 
 
 if __name__ == "__main__":
