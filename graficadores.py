@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"]
+barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
 
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
-def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False, torta = False):
+def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False):
     """
     Procesa un conjunto de columnas tipo 'estado' y 'detalle', 
     generando dos distribuciones:
@@ -19,7 +19,7 @@ def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_deta
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo_estado: datos_estado})
-        graficar_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras,torta)
+        graficar_cualitativa_nominal(df_estado, titulo_estado, f"{titulo} - Presencia", barras)
 
         # --- Distribución de detalle ---
         datos_detalle = []
@@ -115,7 +115,6 @@ def procesar_variable_multi_columna_cualitativa(
 
     # Ejecutar el procesamiento global o por barrio
     procesar_variable_generica(df, titulo_base, ejecutar, desagregar_por_barrio)
-
 
 def procesar_variable_multi_columna_ordinal(
     df,
@@ -231,7 +230,6 @@ def por_barrio(df, funcion, *args, titulo_base="", **kwargs):
         titulo_barrio = f"{titulo_base}: {barrio}"
         funcion(df_barrio, *args, **kwargs, titulo=titulo_barrio)
 
-
 #------------------------------------FUNCIONES DE GRAFICOS Y TABLAS----------------------------------
 # Funcion para mostrar tablas renderizadas con matplotlib
 def mostrar_tabla(tabla, titulo="Tabla"):
@@ -291,11 +289,11 @@ def graficar_cuantitativa_discreta(df, encabezado, titulo,
     serie = df[encabezado].dropna()
     medidas = {
         "Muestra": serie.count(),
-        "Media": serie.mean().round(4),
+        "Media": serie.mean(),
         "Mediana": serie.median(),
         "Moda": serie.mode().iloc[0] if not serie.mode().empty else None,
-        "Varianza": round(serie.var(),4),
-        "Desvío estándar": round(serie.std(),4),
+        "Varianza": serie.var(),
+        "Desvío estándar": serie.std(),
         "Mínimo": serie.min(),
         "Máximo": serie.max(),
         "Rango": serie.max() - serie.min(),
