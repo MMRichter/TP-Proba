@@ -310,7 +310,7 @@ def procesar_variable_adultos_mayores_lugares_referencia_categorias(df, detalle_
     ]
 
     procesar_variable_doble_respuesta_nominal(df,columnas_estado,columnas_detalle,titulo_estado="Presencia de referencia barrial",titulo_detalle="Lugar de referencia",
-        barras=detalle_barras, desagregar_por_barrio=desagregar_por_barrio,torta=estado_torta)
+        barras=detalle_barras, desagregar_por_barrio=desagregar_por_barrio)
 
 def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False):
     def ejecutar(sub_df, titulo=""):

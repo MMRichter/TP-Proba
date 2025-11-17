@@ -118,14 +118,14 @@ def main(argv=None):
     #procesar_variable_adultos_mayores(df,barras=True,desagregar_por_barrio=False);
 
     #Normalizar encuesta, nombres repetidos
-    #procesar_variable_adultos_mayores_lugares_referencia_categorias(df,detalle_barras=True,desagregar_por_barrio=False,estado_torta=True)
+    procesar_variable_adultos_mayores_lugares_referencia_categorias(df,detalle_barras=True,desagregar_por_barrio=False,estado_torta=True)
 
     #Revisar ceros
     #procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False)
 
     #Revisar ingresos de cuidadores: La encuesta solo debe incluir los que la distribucion de cuidados sea
     #   "Principalmente 1 persona", sanitizar encuesta
-    procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=False)
+    #procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=False)
 
 
     #procesar_variable_menores_actividades_recreativas(df,barras=False,ojiva=True,desagregar_por_barrio=True)
