@@ -15,7 +15,8 @@ from procesadores import (
     procesar_variable_adultos_mayores_lugares_referencia_categorias,
     procesar_variable_distribucion_jubilados_pensionados,
     procesar_variable_distribucion_cuidado_menores,
-    procesar_variable_menores_actividades_recreativas
+    procesar_variable_menores_actividades_recreativas,
+    procesar_variable_actividades_extracurriculares
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -82,24 +83,24 @@ encabezados = ["MARCA_TEMPORAL",
                "ADULTO_MAYOR_3_DIFICULTADES_DESPLAZAMIENTO",
                "ADULTO_MAYOR_3_DETALLE_DIFICULTADES",
                "REGISTROS_RELEVANTES"
-    ];
+    ]
 
 def carga_dataset():
-    df = pd.read_csv(base_datos);
+    df = pd.read_csv(base_datos)
     df.columns = encabezados
 
     df["BARRIO"] = df["BARRIO"].str.split(" - ").str[1].fillna("").str.strip()
 
     df.drop(columns=["MARCA_TEMPORAL", "ENCUESTADOR", "NRO_ENCUESTA", "DIRECCION"], inplace=True)
 
-    return df;
+    return df
 
     
 
 #-----------------------------------------MAIN-------------------------------------------------------
 def main(argv=None):
 
-    df = carga_dataset();
+    df = carga_dataset()
 
     #procesar_variable_ingresos_por_persona(df,barras=True,ojiva=False, desagregar_por_barrio=True);
     #procesar_variable_rubro_emprendedores(df,torta=False,desagregar_por_barrio=True); 
@@ -124,10 +125,12 @@ def main(argv=None):
 
     #Revisar ingresos de cuidadores: La encuesta solo debe incluir los que la distribucion de cuidados sea
     #   "Principalmente 1 persona", sanitizar encuesta
-    #procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=True)
+    procesar_variable_distribucion_cuidado_menores(df,barras=True, torta=True,desagregar_por_barrio=False)
 
-    #Revisar no muestra nombre del barrio en las tablas
-    procesar_variable_menores_actividades_recreativas(df,barras=False,ojiva=True,desagregar_por_barrio=True)
+
+    #procesar_variable_menores_actividades_recreativas(df,barras=False,ojiva=True,desagregar_por_barrio=True)
+
+    #procesar_variable_actividades_extracurriculares(df,barras=False, torta=True, desagregar_por_barrio=True)
 
 
 if __name__ == "__main__":

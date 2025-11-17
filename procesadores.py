@@ -55,11 +55,11 @@ def procesar_variable_uso_aplicacion_pami(df, barras=False, torta=True, desagreg
 
 # Prepara los datos para la variable de "rubro emprendimientos"
 def procesar_variable_rubro_emprendedores(df, barras=True, torta=True, desagregar_por_barrio=False):
-    df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()];
+    df_emprendedores = df[df["INICIATIVA_EMPRENDIMIENTO_RUBRO"].notna()]
     def ejecutar(sub_df, titulo=""):
-        graficar_cualitativa_nominal(sub_df,"INICIATIVA_EMPRENDIMIENTO_RUBRO",titulo,barras, torta);
+        graficar_cualitativa_nominal(sub_df,"INICIATIVA_EMPRENDIMIENTO_RUBRO",titulo,barras, torta)
 
-    procesar_variable_generica(df_emprendedores,"Rubros de emprendimientos", ejecutar,desagregar_por_barrio);
+    procesar_variable_generica(df_emprendedores,"Rubros de emprendimientos", ejecutar,desagregar_por_barrio)
 
 # Prepara los datos para la variable de "Cantidad de personas con ingresos en la vivienda"
 def procesar_variable_ingresos_por_persona(df, barras=True, ojiva=True, desagregar_por_barrio=False):
@@ -314,17 +314,17 @@ def procesar_variable_adultos_mayores_lugares_referencia_categorias(df, detalle_
 
 def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False):
     def ejecutar(sub_df, titulo=""):
-        graficar_cuantitativa_discreta(sub_df,"INGRESOS_JUBILADOS_PENSIONADOS",titulo,barras,ojiva)
-    
+        graficar_cuantitativa_discreta(sub_df,"INGRESOS_JUBILADOS_PENSIONADOS",titulo,barras,ojiva) 
+
     procesar_variable_generica(df,"Jubilados/Pensionados por vivienda", ejecutar, desagregar_por_barrio)
 
 # Prepara los datos para la variable de "distribucion de cuidados de menores"
 def procesar_variable_distribucion_cuidado_menores(df, barras=True, torta=True, desagregar_por_barrio=False):
-    df_cuidadores = df[df["MENORES_DISTRIBUCION_CUIDADO"].notna()];
+    df_cuidadores = df[df["MENORES_DISTRIBUCION_CUIDADO"].notna()]
     def ejecutar(sub_df, titulo=""):
-        graficar_cualitativa_nominal(sub_df,"MENORES_DISTRIBUCION_CUIDADO",titulo,barras, torta);
+        graficar_cualitativa_nominal(sub_df,"MENORES_DISTRIBUCION_CUIDADO",titulo,barras, torta)
 
-    procesar_variable_generica(df_cuidadores,"Distribucion de cuidados de menores", ejecutar,desagregar_por_barrio);
+    procesar_variable_generica(df_cuidadores,"Distribucion de cuidados de menores", ejecutar,desagregar_por_barrio)
 
 def procesar_variable_menores_actividades_recreativas(df, barras=False, ojiva=True, desagregar_por_barrio=False):
     #df_recretivas=df[df["MENORES_ACTIVIDADES_EXTRACURRICULARES"].notna()]
@@ -332,3 +332,47 @@ def procesar_variable_menores_actividades_recreativas(df, barras=False, ojiva=Tr
         graficar_cuantitativa_discreta(sub_df,"MENORES_ACTIVIDADES_EXTRACURRICULARES",titulo,barras,ojiva)
 
     procesar_variable_generica(df,"Menores recreativas por vivienda", ejecutar, desagregar_por_barrio)
+
+def procesar_variable_actividades_extracurriculares(df,
+                                                    barras=True,
+                                                    torta=True,
+                                                    desagregar_por_barrio=False):
+    
+    def ejecutar(sub_df, titulo=""):
+        col_total = "MENORES_ACTIVIDADES_EXTRACURRICULARES"
+        col_barrio = "MENORES_ACTIVIDADES_EXTRACURRICULARES_EN_BARRIO"
+
+        # Convertir a numérico
+        total = pd.to_numeric(sub_df[col_total], errors="coerce").fillna(0)
+        en_barrio = pd.to_numeric(sub_df[col_barrio], errors="coerce").fillna(0)
+
+        # Calcular los fuera del barrio
+        fuera_barrio = (total - en_barrio).clip(lower=0)
+
+        # Crear registros individuales
+        registros = (
+            ["En el barrio"] * int(en_barrio.sum()) +
+            ["Fuera del barrio"] * int(fuera_barrio.sum())
+        )
+
+        if len(registros) == 0:
+            print(f"No hay actividades extracurriculares registradas en {titulo}")
+            return
+
+        df_resultado = pd.DataFrame({"Lugar": registros})
+
+        graficar_cualitativa_nominal(
+            df_resultado,
+            "Lugar",
+            f"{titulo} - Actividades extra-escolares",
+            barras,
+            torta
+        )
+
+    procesar_variable_generica(
+        df,
+        "Distribución de actividades extra-escolares",
+        ejecutar,
+        desagregar_por_barrio
+    )
+
