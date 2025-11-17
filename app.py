@@ -123,8 +123,8 @@ def main(argv=None):
     #Variable: Tiempo buscando trabajo por persona
     #procesar_variable_personas_buscando_trabajo_tiempo(df,barras=True,torta=False,desagregar_por_barrio=True)
 
-    #Variable: Numero de personas buscando trabajo por vivienda
-    #procesar_variable_personas_buscando_trabajo(df,barras=True,ojiva=False,desagregar_por_barrio=True)
+    #Variable: Numero de personas buscando trabajo por vivienda -> incluir_cero = True | false
+    procesar_variable_personas_buscando_trabajo(df,barras=True,ojiva=False,desagregar_por_barrio=True,incluir_cero=True)
 
 #-----------------VARIABLES ASOCIADAS A EMPRENDIMIENTOS---------------------------------------------
    

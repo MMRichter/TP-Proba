@@ -132,11 +132,50 @@ def procesar_variable_tipos_ingresos(df, barras=True, torta=False, desagregar_po
     procesar_variable_multi_columna_nominal(df,columnas_ingresos,"Tipos de Ingresos","Tipos de Ingresos",barras,torta,desagregar_por_barrio)
 
 #Variable personas buscando trabajo por vivienda
-def procesar_variable_personas_buscando_trabajo(df, barras=True, ojiva=True, desagregar_por_barrio = False):
-    def ejecutar(sub_df, titulo=""):
-        graficar_cuantitativa_discreta(sub_df,"PERSONAS_BUSCANDO_TRABAJO", titulo, barras,ojiva)
+def procesar_variable_personas_buscando_trabajo(
+    df,
+    barras=True,
+    ojiva=True,
+    desagregar_por_barrio=False,
+    incluir_cero=True
+):
+    # --- Preprocesamiento global ---
+    col = "PERSONAS_BUSCANDO_TRABAJO"
+    
+    if incluir_cero:
+        # NA → 0
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+    else:
+        # Eliminar NA y eliminar ceros
+        df = df[pd.to_numeric(df[col], errors="coerce").fillna(0) != 0]
 
-    procesar_variable_generica(df,"Personas buscando trabajo por vivienda",ejecutar,desagregar_por_barrio)
+    def ejecutar(sub_df, titulo=""):
+        sub_df = sub_df.copy()
+
+        if incluir_cero:
+            sub_df[col] = pd.to_numeric(sub_df[col], errors="coerce").fillna(0)
+        else:
+            sub_df = sub_df[pd.to_numeric(sub_df[col], errors="coerce").fillna(0) != 0]
+
+        if sub_df.empty:
+            print(f"No hay datos válidos para {titulo}")
+            return
+
+        graficar_cuantitativa_discreta(
+            sub_df,
+            col,
+            titulo,
+            barras,
+            ojiva
+        )
+
+    procesar_variable_generica(
+        df,
+        "Personas buscando trabajo por vivienda",
+        ejecutar,
+        desagregar_por_barrio
+    )
+
 
 #Variable tiempo buscando trabajo por persona
 def procesar_variable_personas_buscando_trabajo_tiempo(df, barras=True, ojiva=True,torta=False, desagregar_por_barrio=False):
@@ -317,7 +356,7 @@ def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=Fa
         df_jubilados=df[df["INGRESOS_JUBILADOS_PENSIONADOS"]!= 0]
     else:
         df_jubilados=df
-        
+
     def ejecutar(sub_df, titulo=""):
         graficar_cuantitativa_discreta(sub_df,"INGRESOS_JUBILADOS_PENSIONADOS",titulo,barras,ojiva) 
 
