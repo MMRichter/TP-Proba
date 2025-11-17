@@ -66,7 +66,7 @@ def procesar_variable_ingresos_por_persona(df, barras=True, ojiva=True, desagreg
     def ejecutar(sub_df, titulo=""):
         graficar_cuantitativa_discreta(sub_df,"PERSONAS_CON_INGRESOS",titulo,barras,ojiva)
     
-    procesar_variable_generica(df,"Personas con ingresos",ejecutar,desagregar_por_barrio)
+    procesar_variable_generica(df,"Personas con ingresos por vivienda",ejecutar,desagregar_por_barrio)
 
 #Variable Dificultad de desplazamiento SI/NO y Variable Detalle de dificultad
 def procesar_variable_dificultad_desplazamiento(df, barras=True, desagregar_por_barrio=False):
@@ -201,7 +201,7 @@ def procesar_variable_habilitacion_emprendimientos(df, barras=False, torta=True,
             torta
         )
 
-    procesar_variable_generica(df, "Habilitación en emprendimientos de alimentos", ejecutar, desagregar_por_barrio)
+    procesar_variable_generica(df, "Habilitación en emprendimientos", ejecutar, desagregar_por_barrio)
 
 def procesar_variable_distribucion_edad_menores_rango(df, barras=True, desagregar_por_barrio=False):
     columnas_menores = {
@@ -237,9 +237,9 @@ def procesar_variable_menores_escolarizados(df, barras=False, torta=True, desagr
             datos_estado.extend(sub_df[col].dropna().astype(str).tolist())
 
         df_estado = pd.DataFrame({titulo: datos_estado})
-        graficar_cualitativa_nominal(df_estado, titulo, f"{titulo} - Presencia", barras,torta)
+        graficar_cualitativa_nominal(df_estado, titulo, f"{titulo}", barras,torta)
 
-    procesar_variable_generica(df,"Escolarizacion",ejecutar,desagregar_por_barrio)
+    procesar_variable_generica(df,"# Menores escolarizados por vivienda",ejecutar,desagregar_por_barrio)
 
 def procesar_variable_escolarizacion_en_barrio(df, barras=False, torta=True, desagregar_por_barrio=False):
     columnas={"MENORES_INSTITUCIONES_EDUCATIVAS_EN_BARRIO" : "Escolarizados en el Barrio",
@@ -312,11 +312,16 @@ def procesar_variable_adultos_mayores_lugares_referencia_categorias(df, detalle_
     procesar_variable_doble_respuesta_nominal(df,columnas_estado,columnas_detalle,titulo_estado="Presencia de referencia barrial",titulo_detalle="Lugar de referencia",
         barras=detalle_barras, desagregar_por_barrio=desagregar_por_barrio)
 
-def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False):
+def procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False, incluir_cero=True):
+    if not incluir_cero:
+        df_jubilados=df[df["INGRESOS_JUBILADOS_PENSIONADOS"]!= 0]
+    else:
+        df_jubilados=df
+        
     def ejecutar(sub_df, titulo=""):
         graficar_cuantitativa_discreta(sub_df,"INGRESOS_JUBILADOS_PENSIONADOS",titulo,barras,ojiva) 
 
-    procesar_variable_generica(df,"Jubilados/Pensionados por vivienda", ejecutar, desagregar_por_barrio)
+    procesar_variable_generica(df_jubilados,"Jubilados/Pensionados por vivienda", ejecutar, desagregar_por_barrio)
 
 # Prepara los datos para la variable de "distribucion de cuidados de menores"
 def procesar_variable_distribucion_cuidado_menores(df, barras=True, torta=True, desagregar_por_barrio=False):
@@ -331,9 +336,9 @@ def procesar_variable_menores_actividades_recreativas(df, barras=False, ojiva=Tr
     def ejecutar(sub_df, titulo=""):
         graficar_cuantitativa_discreta(sub_df,"MENORES_ACTIVIDADES_EXTRACURRICULARES",titulo,barras,ojiva)
 
-    procesar_variable_generica(df,"Menores recreativas por vivienda", ejecutar, desagregar_por_barrio)
+    procesar_variable_generica(df,"# Menores por vivienda realizando A.R", ejecutar, desagregar_por_barrio)
 
-def procesar_variable_actividades_extracurriculares(df,
+def procesar_variable_actividades_extracurriculares_en_barrio(df,
                                                     barras=True,
                                                     torta=True,
                                                     desagregar_por_barrio=False):
@@ -364,20 +369,20 @@ def procesar_variable_actividades_extracurriculares(df,
         graficar_cualitativa_nominal(
             df_resultado,
             "Lugar",
-            f"{titulo} - Actividades extra-escolares",
+            f"{titulo}",
             barras,
             torta
         )
 
     procesar_variable_generica(
         df,
-        "Distribución de actividades extra-escolares",
+        "Lugar de actividades extra-escolares",
         ejecutar,
         desagregar_por_barrio
     )
 
 
-def procesar_variable_roles_cuidadores(df,
+def procesar_variable_parentesco_cuidadores(df,
                                        barras=True,
                                        torta=True,
                                        desagregar_por_barrio=False):
@@ -401,19 +406,19 @@ def procesar_variable_roles_cuidadores(df,
             print(f"No hay datos válidos de cuidadores principales en {titulo}")
             return
 
-        df_roles = pd.DataFrame({"Rol cuidador": roles})
+        df_roles = pd.DataFrame({"Parentesco cuidador": roles})
 
         graficar_cualitativa_nominal(
             df_roles,
-            "Rol cuidador",
-            f"{titulo} - Distribución de roles de cuidadores",
+            "Parentesco cuidador",
+            f"{titulo}",
             barras,
             torta
         )
 
     procesar_variable_generica(
         df,
-        "Distribución de roles de cuidadores",
+        "Parentesco de cuidadores",
         ejecutar,
         desagregar_por_barrio
     )
@@ -447,14 +452,14 @@ def procesar_variable_cuidador_con_ingresos(df,
         graficar_cualitativa_nominal(
             df_ingresos,
             "Cuidador con ingresos",
-            f"{titulo} - Ingresos del cuidador principal",
+            f"{titulo}",
             barras,
             torta
         )
 
     procesar_variable_generica(
         df,
-        "Ingresos cuidador principal",
+        "Cuidador posee ingresos",
         ejecutar,
         desagregar_por_barrio
     )
