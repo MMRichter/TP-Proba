@@ -16,7 +16,9 @@ from procesadores import (
     procesar_variable_distribucion_jubilados_pensionados,
     procesar_variable_distribucion_cuidado_menores,
     procesar_variable_menores_actividades_recreativas,
-    procesar_variable_actividades_extracurriculares
+    procesar_variable_actividades_extracurriculares,
+    procesar_variable_roles_cuidadores,
+    procesar_variable_cuidador_con_ingresos
 )
 #-------------------------------------CONSTANTES-----------------------------------------------------
 # Ruta del archivo CSV de la base de datos
@@ -118,7 +120,7 @@ def main(argv=None):
     #procesar_variable_adultos_mayores(df,barras=True,desagregar_por_barrio=False);
 
     #Normalizar encuesta, nombres repetidos
-    procesar_variable_adultos_mayores_lugares_referencia_categorias(df,detalle_barras=True,desagregar_por_barrio=False,estado_torta=True)
+    #procesar_variable_adultos_mayores_lugares_referencia_categorias(df,detalle_barras=True,desagregar_por_barrio=False,estado_torta=True)
 
     #Revisar ceros
     #procesar_variable_distribucion_jubilados_pensionados(df,barras=True,ojiva=False,desagregar_por_barrio=False)
@@ -131,6 +133,10 @@ def main(argv=None):
     #procesar_variable_menores_actividades_recreativas(df,barras=False,ojiva=True,desagregar_por_barrio=True)
 
     #procesar_variable_actividades_extracurriculares(df,barras=False, torta=True, desagregar_por_barrio=True)
+
+    #procesar_variable_roles_cuidadores(df,barras=False,torta=False,desagregar_por_barrio=False)
+
+    #procesar_variable_cuidador_con_ingresos(df,barras=False,torta=False,desagregar_por_barrio=False);
 
 
 if __name__ == "__main__":

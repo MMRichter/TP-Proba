@@ -376,3 +376,87 @@ def procesar_variable_actividades_extracurriculares(df,
         desagregar_por_barrio
     )
 
+
+def procesar_variable_roles_cuidadores(df,
+                                       barras=True,
+                                       torta=True,
+                                       desagregar_por_barrio=False):
+    
+    def ejecutar(sub_df, titulo=""):
+        col_distrib = "MENORES_DISTRIBUCION_CUIDADO"
+        col_parentesco = "MENORES_PARENTESCO_CUIDADOR"
+
+        # Filtramos SOLO los casos relevantes
+        mask = sub_df[col_distrib].astype(str).str.strip().str.lower() == "principalmente en una persona"
+
+        # Extraemos los roles
+        roles = (
+            sub_df.loc[mask, col_parentesco]
+            .dropna()
+            .astype(str)
+            .str.strip()
+        )
+
+        if roles.empty:
+            print(f"No hay datos válidos de cuidadores principales en {titulo}")
+            return
+
+        df_roles = pd.DataFrame({"Rol cuidador": roles})
+
+        graficar_cualitativa_nominal(
+            df_roles,
+            "Rol cuidador",
+            f"{titulo} - Distribución de roles de cuidadores",
+            barras,
+            torta
+        )
+
+    procesar_variable_generica(
+        df,
+        "Distribución de roles de cuidadores",
+        ejecutar,
+        desagregar_por_barrio
+    )
+
+def procesar_variable_cuidador_con_ingresos(df,
+                                            barras=True,
+                                            torta=True,
+                                            desagregar_por_barrio=False):
+    
+    def ejecutar(sub_df, titulo=""):
+        col_distrib = "MENORES_DISTRIBUCION_CUIDADO"
+        col_ingresos = "MENORES_CUIDADOR_INGRESOS"
+
+        # Filtrar solo los casos donde el cuidado es "Principalmente una persona"
+        mask = sub_df[col_distrib].astype(str).str.strip().str.lower() == "principalmente en una persona"
+
+        # Extraer la información de ingresos del cuidador
+        ingresos = (
+            sub_df.loc[mask, col_ingresos]
+            .dropna()
+            .astype(str)
+            .str.strip()
+        )
+
+        if ingresos.empty:
+            print(f"No hay datos válidos de ingresos del cuidador en {titulo}")
+            return
+
+        df_ingresos = pd.DataFrame({"Cuidador con ingresos": ingresos})
+
+        graficar_cualitativa_nominal(
+            df_ingresos,
+            "Cuidador con ingresos",
+            f"{titulo} - Ingresos del cuidador principal",
+            barras,
+            torta
+        )
+
+    procesar_variable_generica(
+        df,
+        "Ingresos cuidador principal",
+        ejecutar,
+        desagregar_por_barrio
+    )
+
+
