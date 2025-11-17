@@ -1,9 +1,31 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+from datetime import datetime
+import re
 
 barrios = ["BELGRANO", "VILLA LAZA", "CHARITOS"];
 
 #-------------------------------------FUNCIONES GENERALES--------------------------------------------
+def guardar_figura(titulo, mostrar=True):
+    carpeta = "exportados"
+    os.makedirs(carpeta, exist_ok=True)
+
+    nombre = re.sub(r'[<>:"/\\|?*]', '', titulo.replace(" ", "_"))
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    nombre_final = f"{nombre}_{timestamp}.png"
+
+    ruta = os.path.join(carpeta, nombre_final)
+    plt.savefig(ruta, dpi=300, bbox_inches="tight")
+
+    if mostrar:
+        plt.show()
+
+    plt.close()
+
+
+
+
 def procesar_variable_doble_respuesta_nominal(df, columnas_estado, columnas_detalle, titulo_estado, titulo_detalle, barras=True, desagregar_por_barrio=False):
     """
     Procesa un conjunto de columnas tipo 'estado' y 'detalle', 
@@ -257,6 +279,7 @@ def mostrar_tabla(tabla, titulo="Tabla"):
     tabla_plot.auto_set_column_width(range(columnas))
 
     plt.tight_layout()
+    guardar_figura(titulo)
     plt.show()
 
 # Tabla de frecuencias cuantitativa discreta
@@ -326,6 +349,7 @@ def graficar_cuantitativa_discreta(df, encabezado, titulo,
         plt.xlabel(titulo)
         plt.ylabel("Frecuencia absoluta")
         plt.tight_layout()
+        guardar_figura(f"Distribución de {titulo}")
         plt.show()
 
     # ================================
@@ -339,6 +363,7 @@ def graficar_cuantitativa_discreta(df, encabezado, titulo,
         plt.grid(alpha=0.3)
         plt.ylim(0, 105)
         plt.tight_layout()
+        guardar_figura(f"Distribución de {titulo}")
         plt.show()
 
     return tabla, resumen
@@ -382,6 +407,7 @@ def graficar_cualitativa_ordinal(df, encabezado, titulo, jerarquias,
         plt.ylabel("Frecuencia absoluta (fi)")
         plt.xticks(rotation=30, ha='right')
         plt.tight_layout()
+        guardar_figura(f"Distribución de {titulo}")
         plt.show()
 
     # ===========================
@@ -442,6 +468,7 @@ def graficar_cualitativa_nominal(df, encabezado,titulo,
         plt.ylabel("Frecuencia absoluta (fi)")
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
+        guardar_figura(f"Distribución de {titulo}")
         plt.show()
 
     # ================================
@@ -455,6 +482,7 @@ def graficar_cualitativa_nominal(df, encabezado,titulo,
                 pctdistance=0.85)
         plt.title(f"Distribución porcentual de {titulo}")
         plt.tight_layout()
+        guardar_figura(f"Distribución de {titulo}")
         plt.show()
 
     # ================================

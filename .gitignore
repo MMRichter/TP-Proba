@@ -1,3 +1,5 @@
+# Carpetas generadas por el programa
+exportados/
 # Python
 __pycache__/
 *.py[cod]
